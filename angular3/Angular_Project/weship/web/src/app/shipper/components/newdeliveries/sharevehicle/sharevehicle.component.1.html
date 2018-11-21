@@ -1,0 +1,126 @@
+<div class="page-title-text">
+  <h3>New Delivery</h3>
+</div>
+<div class="card">
+  <div class="card-header">
+    <!-- <h5 class="card-title">Choose Category</h5> -->
+    <span *ngFor="let click of clicked; let i=index; let islast=last" class="">
+      <a *ngIf="!islast else lastLabel" rel="nofollow" routerLink="." (click)="showcategorynav(click, i)">
+        {{click.name}}>
+      </a>
+      <ng-template #lastLabel>{{click.name}} :</ng-template>
+
+    </span>
+  </div>
+</div>
+<!-- <app-applienceform></app-applienceform>
+<app-furnitureform></app-furnitureform>
+<app-vehicleform></app-vehicleform> -->
+
+<div>
+  <a routerLink="bidlist/1">bid link</a>
+  <h2>Create Listing</h2>
+  <form [formGroup]="addInputs" (ngSubmit)="onSubmit(addInputs)">
+    <div class="container">
+      <mat-accordion class="example-headers-align">
+        <mat-expansion-panel [formGroup]="list" *ngFor="let list of addInputs.get('products').controls;let i = index" [expanded]="step === i"
+          (opened)="setStep(i)">
+
+
+
+          <mat-expansion-panel-header>
+            <mat-panel-title class="col-xl-8">
+              {{list.controls.name.value}}
+            </mat-panel-title>
+            <mat-panel-description>
+              Click to expand details
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <mat-card class="example-card">
+            <mat-form-field class="field-width">
+              <mat-select placeholder="Select Category">
+                <!--                  <mat-option *ngFor="let food of foods" [value]="food.value" [formControl]="list.controls.categoryId">
+                    {{ food.viewValue }}
+                  </mat-option>-->
+              </mat-select>
+            </mat-form-field>
+
+
+            <!--              <div class="form-group">
+                <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #searchMap [formControl]="list.controls.googleMap">
+              </div>
+              Map
+              <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+                <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+              </agm-map>-->
+
+            <mat-form-field class="field-width">
+              <input matInput placeholder="Product Name" formControlName="name" autofocus="" [formControl]="list.controls.name">
+              <mat-error *ngIf="formArray?.get([0]).get('name').hasError('required')">
+                Product name is
+                <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="field-width">
+              <input matInput placeholder="Length" formControlName="lenght" autofocus="" [formControl]="list.controls.lenght">
+              <mat-error *ngIf="formArray?.get([0]).get('list.controls.lenght').hasError('required')">
+                Product lenght is
+                <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="field-width">
+              <input matInput placeholder="Width" formControlName="width" autofocus="" [formControl]="list.controls.width">
+              <mat-error *ngIf="formArray?.get([0]).get('width').hasError('required')">
+                Product width is
+                <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="field-width">
+              <input matInput placeholder="Height" formControlName="height" autofocus="" [formControl]="list.controls.height">
+              <mat-error *ngIf="formArray?.get([0]).get('height').hasError('required')">
+                Product height is
+                <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="field-width">
+              <input matInput placeholder="Weight" formControlName="weight" autofocus="" [formControl]="list.controls.weight">
+              <mat-error *ngIf="formArray?.get([0]).get('weight').hasError('required')">
+                Product weight is
+                <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="field-width">
+              <input matInput placeholder="Quantity" formControlName="qty" autofocus="" [formControl]="list.controls.qty">
+              <mat-error *ngIf="formArray?.get([0]).get('qty').hasError('required')">
+                Product Quantity is
+                <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+              <textarea matInput placeholder="Product Description" formControlName="desc" autofocus="" [formControl]="list.controls.desc"></textarea>
+              <mat-error *ngIf="formArray?.get([0]).get('desc').hasError('required')">
+                Product Description is
+                <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <button *ngIf="i>0" mat-raised-button color="primary" (click)="delListing(i)">
+              <strong>-</strong>
+            </button>
+          </mat-card>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <button mat-raised-button color="primary" (click)="addListing()">
+        <strong>+</strong>
+      </button>
+      <button mat-raised-button color="primary" type="submit" class="btn btn-primary btn-lg btn-margin">Submit</button>
+    </div>
+  </form>
+  <div>

@@ -1,0 +1,377 @@
+<!-- Start Peogress Spinner, need to create common component -->
+<div class="overlay" *ngIf="progressSpinner">
+    <div class="overlay__wrapper">
+        <div class="overlay__spinner">
+            <mat-progress-spinner class="example-margin" [color]="'primary'" [mode]="'indeterminate'" diameter=50>
+            </mat-progress-spinner>
+        </div>
+    </div>
+</div>
+<!--End Peogress Spinner -->
+<div id="id01" #orderdetailPanel class="orderdetail-modal">
+    <div class="modal-content">
+        <div class="orderdetail-container">
+            <div class="container" style="background-color: white">
+                <form [formGroup]="itemDetailForm">
+                    <!--below line updated with closeCard() by kish  -->
+                        <span style="cursor: pointer" (click)="orderdetailPanel.style.display='none'; closeCard()" class="close display-topright"  title="Close Modal">&times;</span>
+                    <!--end by kish  -->
+                        <!-- <div class="row">
+                                <div class="col-md-3">
+                                    <h5>Order Detail: {{transporterTxn.status}}</h5>
+                                </div>
+                        </div> -->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                                <div class="col-md-3" >
+                                                        <h5>Order Detail: {{transporterTxn.status}}</h5>
+                                                        <!-- <mat-form-field class="example-full-width" style="width:90px">
+                                                                <input matInput  placeholder="Bid Amount" required [(ngModel)]="editBidAmt"  formControlName="bidAmt" disabled>
+                                                        </mat-form-field> -->
+                                                </div>
+                                                    <!-- <div *ngIf="transporterTxn.status==='initiated'"> -->
+                                                <div class="col-md-3" style="text-align: center" *ngIf="transporterTxn.status==='initiated' && !successMsg">
+                                                        <mat-form-field class="example-full-width" style="width:90px">
+                                                                <input matInput  placeholder="Bid Amount" required [(ngModel)]="editBidAmt"  formControlName="bidAmt">
+                                                        </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3" style="text-align: center" *ngIf="transporterTxn.status==='initiated' && successMsg">
+                                                        <h6>Edit Success</h6>
+                                                </div>
+                                                <div class="col-md-6" *ngIf="transporterTxn.status==='initiated'">
+                                                    <div class="row" *ngIf="bidAmtEnable && !successMsg">
+                                                            
+                                                            <div class="col-md-3">
+                                                                <button mat-raised-button class="mat-primary" (click)="editBid()" [disabled]="!itemDetailForm.valid">Submit </button>
+                                                            </div>
+                                                            <div class="col-md-3" >
+                                                                <button mat-raised-button class="mat-warn" (click)="editEnable('cancel')">Cancel </button>
+                                                            </div>
+                                                    </div>
+                                                    
+                                                    <div class="row" *ngIf="!bidAmtEnable">
+                                                        
+                                                            <div class="col-md-3">
+                                                                    <button mat-raised-button class="mat-primary" (click)="editEnable('edit')">Edit</button>
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col-md-3" *ngIf="!successMsg || errorMsg!== undefined">
+                                                                    <h6 style="color: red">{{errorMsg}}</h6> 
+                                                            </div>
+                                                            
+                                                            
+                                                            
+                                                    </div>
+                                                    
+                                                    
+                                                </div>
+                                                    <!-- </div> -->
+                                                    
+                                                        <div class="col-md-9" style="text-align:center" *ngIf="transporterTxn.status==='accepted' || transporterTxn.status==='completed'">
+                                                                <strong style="color: red">Bid Amount: {{transporterTxn.bid.amount}}</strong>
+                                                        </div>
+                                                                
+                                                    
+                                                    
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+
+                                
+                           
+                        
+                        <div class="row">
+                            <div class="col-md-12" style="background-color: rgb(6, 61, 75)">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div style="color:  white; font: bold; text-align: left">Pick Up : {{ inputItem.fromLoc.sublocality1 }},{{ inputItem.fromLoc.locality }}</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div style="color:  white; font: bold; text-align: right">Destination : {{ inputItem.toLoc.sublocality1 }},{{ inputItem.toLoc.locality }}</div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top: 10px">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        Start Date: {{ inputItem.fromDate | date:'dd-MMM-yyyy' }}
+                                    </div>
+                                    <div class="col-md-6" style="text-align: right">
+                                        End Date: {{ inputItem.toDate | date:'dd-MMM-yyyy' }}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="loggedIn">
+                        <div class="row" style="padding-top: 10px; padding-bottom: 10px">
+                                <div class="col-md-12">
+                                        <!-- <div style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font: bold">Request By</div> -->
+                                    <div class="row">
+                                        <div class="col-md-5" style="text-align: left">
+                                            Requestor Name: {{ this.shipperUser.fName }} {{ this.shipperUser.lName }}
+                                        </div>
+                                        <div class="col-md-3" style="text-align: center">
+                                            Contact No: {{ this.shipperUser.mobile }}
+                                        </div>
+                                        <div class="col-md-4" style="text-align: right">
+                                            Email: {{ this.shipperUser.email }}
+                                        </div>
+    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="inputItem.shared">
+                        <div class="row" style="background-color: rgb(6, 61, 75)">
+                            <div class="col-md-12">
+                                <div style="color: white">Require Share Vehicle</div>
+                            </div>
+                        </div>
+                        </div>
+                        <div *ngIf="!inputItem.shared">
+                            <div class="row" style="background-color: rgb(6, 61, 75)">
+                                <div class="col-md-12">
+                                    <div style="color: white">Require Complete Vehicle</div>
+                                </div>
+                            </div>
+                            <div class="row" style="padding-top: 10px"> 
+                                <div class="col-md-6">
+                                    <div>Vehicle Name : {{vehicle.brandName}} {{vehicle.vehicleName}}</div>
+                                </div>
+                                <div *ngIf="inputItem.covered" class="col-md-6" style="text-align: right">
+                                    <div>Covered</div>
+                                </div>
+                                <div *ngIf="!inputItem.covered" class="col-md-6" style="text-align: right">
+                                    <div>Non Covered</div>
+                                </div>                            
+                            </div>
+                            <div class="row" style="padding-top: 10px"> 
+                                <div class="col-md-6">
+                                    <div>Amount Quote : {{inputItem.userAmount}}</div>
+                                </div>
+                            </div>
+                            <div class="row" style="padding-top: 10px"> 
+                                <div class="col-md-6">
+                                    <img [src]="imageUrl" class="img-responsive" style="border-radius:50%; align-content: right">
+                                </div>
+                            </div>
+                            
+
+                        </div>
+                         <div *ngIf="inputItem.shared">
+                            <div *ngFor="let itemDetail of itemList">
+                                    <div class="row" *ngIf="itemDetail.category==='furniture'">
+                                            <div class="col-md-12">
+                                                <div>Category : {{itemDetail.categoryName}}</div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div>Item Name : {{itemDetail.detail.type}} {{itemDetail.detail.name}}</div>
+                                                    </div>
+                                                    <!-- <div class="col-md-6" style="text-align: right">
+                                                            <div>Measurment(Inch)=> Length : {{itemDetail.detail.length}} Width : {{itemDetail.detail.width}} Height : {{itemDetail.detail.height}}</div>
+                                                    </div> -->
+                                                    <div class="col-md-6" style="text-align: right">
+                                                        <img [src]="itemimageUrl" class="img-responsive" style="align-content: right; height: 70px; width: 70px">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div>Weight : {{itemDetail.detail.weight}}  Quantity : {{itemDetail.detail.qty}}</div>
+                                                        </div>
+                                                        <!-- <div class="col-md-6" style="text-align: right">
+                                                            <div>Photo</div>
+                                                        </div> -->
+                                                </div>
+                                                <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div>Description : {{itemDetail.detail.desc}}</div>
+                                                        </div>
+                                                </div>
+                                                    
+                                            </div>
+                                            <hr style="color: black">
+                                    </div>
+
+                                    <div class="row" *ngIf="itemDetail.category==='vehicle'">
+                                            <div class="col-md-12">
+                                                <div>Category : {{itemDetail.categoryName}}</div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div>Item Name : {{itemDetail.detail.type}} {{itemDetail.detail.name}}</div>
+                                                    </div>
+                                                    <div class="col-md-6" style="text-align: right">
+                                                        <img [src]="itemimageUrl" class="img-responsive" style="align-content: right; height: 100px; width: 100px">
+                                                    </div>
+                                                    <!-- <div class="col-md-6" style="text-align: right">
+                                                            <div>Measurment(Inch)=> Length : {{itemDetail.detail.length}} Width : {{itemDetail.detail.width}} Height : {{itemDetail.detail.height}}</div>
+                                                    </div> -->
+                                                </div>
+                                                <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div>Weight : {{itemDetail.detail.weight}}  Quantity : {{itemDetail.detail.qty}}</div>
+                                                        </div>
+                                                        <div class="col-md-6" style="text-align: right">
+                                                            <img [src]="itemimageUrl" class="img-responsive" style="align-content: right; height: 100px; width: 100px">
+                                                        </div>
+                                                </div>
+                                                <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div>Description : {{itemDetail.detail.desc}}</div>
+                                                        </div>
+                                                </div>
+                                                    
+                                            </div>
+                                            <hr style="color: black">
+                                    </div>
+                                    <div class="row" *ngIf="itemDetail.category==='appliances'">
+                                            <div class="col-md-12">
+                                                <div>Category : {{itemDetail.categoryName}}</div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div>Item Name : {{itemDetail.detail.type}} {{itemDetail.detail.name}}</div>
+                                                    </div>
+                                                    <div class="col-md-6" style="text-align: right">
+                                                        <img [src]="itemimageUrl" class="img-responsive" style="align-content: right; height: 100px; width: 100px">
+                                                    </div>
+                                                    <!-- <div class="col-md-6" style="text-align: right">
+                                                            <div>Measurment(Inch)=> Length : {{itemDetail.detail.length}} Width : {{itemDetail.detail.width}} Height : {{itemDetail.detail.height}}</div>
+                                                    </div> -->
+                                                </div>
+                                                <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div>Weight : {{itemDetail.detail.weight}}  Quantity : {{itemDetail.detail.qty}}</div>
+                                                        </div>
+                                                        <div class="col-md-6" style="text-align: right">
+                                                            <div>Photo</div>
+                                                        </div>
+                                                </div>
+                                                <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div>Description : {{itemDetail.detail.desc}}</div>
+                                                        </div>
+                                                </div>
+                                                    
+                                            </div>
+                                            <hr style="color: black">
+                                    </div>
+                                    <div class="row" *ngIf="itemDetail.category==='animal'">
+                                            <div class="col-md-12">
+                                                <div>Category : {{itemDetail.categoryName}}</div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div>Item Name : {{itemDetail.detail.type}} {{itemDetail.detail.name}}</div>
+                                                    </div>
+                                                    <div class="col-md-6" style="text-align: right">
+                                                        <img [src]="itemimageUrl" class="img-responsive" style="align-content: right; height: 100px; width: 100px">
+                                                    </div>
+                                                    <!-- <div class="col-md-6" style="text-align: right">
+                                                            <div>Measurment(Inch)=> Length : {{itemDetail.detail.length}} Width : {{itemDetail.detail.width}} Height : {{itemDetail.detail.height}}</div>
+                                                    </div> -->
+                                                </div>
+                                                <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div>Weight : {{itemDetail.detail.weight}}  Quantity : {{itemDetail.detail.qty}}</div>
+                                                        </div>
+                                                        <!-- <div class="col-md-6" style="text-align: right">
+                                                            <div>Photo</div>
+                                                        </div> -->
+                                                </div>
+                                                <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div>Description : {{itemDetail.detail.desc}}</div>
+                                                        </div>
+                                                </div>
+                                                   <hr style="color: black"> 
+                                            </div>
+                                    </div>
+                                    <div class="row" *ngIf="itemDetail.category==='household'">
+                                            <div class="col-md-12">
+                                                <div>Category : {{itemDetail.categoryName}}</div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div>Item Name : {{itemDetail.detail.type}} {{itemDetail.detail.name}}</div>
+                                                    </div>
+                                                    <div class="col-md-6" style="text-align: right">
+                                                        <img [src]="itemimageUrl" class="img-responsive" style="align-content: right; height: 100px; width: 100px">
+                                                    </div>
+                                                    <!-- <div class="col-md-6" style="text-align: right">
+                                                        <div>Measurment(Inch)=> Length : {{itemDetail.detail.length}}, Width : {{itemDetail.detail.width}}, Height : {{itemDetail.detail.height}}</div>
+                                                    </div> -->
+                                                </div>
+                                                <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div>Weight : {{itemDetail.detail.weight}}  Quantity : {{itemDetail.detail.qty}}</div>
+                                                        </div>
+                                                        <!-- <div class="col-md-6" style="text-align: right">
+                                                            <div>Photo</div>
+                                                        </div> -->
+                                                </div>
+                                                <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div>Description : {{itemDetail.detail.desc}}</div>
+                                                        </div>
+                                                </div>
+                                                <hr style="color: black">  
+                                            </div>
+                                            
+                                    </div>
+                                    <div class="row" *ngIf="itemDetail.category==='others'">
+                                            <div class="col-md-12">
+                                                <div>Category : {{itemDetail.categoryName}}</div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div>Item Name : {{itemDetail.detail.type}} {{itemDetail.detail.name}}</div>
+                                                    </div>
+                                                    <div class="col-md-6" style="text-align: right">
+                                                        <img [src]="itemimageUrl" class="img-responsive" style="align-content: right; height: 100px; width: 100px">
+                                                    </div>
+                                                    <!-- <div class="col-md-6" style="text-align: right">
+                                                            <div>Measurment(Inch)=> Length : {{itemDetail.detail.length}} Width : {{itemDetail.detail.width}} Height : {{itemDetail.detail.height}}</div>
+                                                    </div> -->
+                                                </div>
+                                                <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div>Weight : {{itemDetail.detail.weight}}  Quantity : {{itemDetail.detail.qty}}</div>
+                                                        </div>
+                                                        <div class="col-md-6" style="text-align: right">
+                                                            <div>Photo</div>
+                                                        </div>
+                                                </div>
+                                                <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div>Description : {{itemDetail.detail.desc}}</div>
+                                                        </div>
+                                                </div>
+                                                    
+                                            </div>
+                                            <hr style="color: black">
+                                    </div>
+    
+                            </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

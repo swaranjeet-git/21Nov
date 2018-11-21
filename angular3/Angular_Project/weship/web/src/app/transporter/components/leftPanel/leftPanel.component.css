@@ -1,0 +1,39 @@
+.example-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+  }
+
+  .example-label-margin {
+    margin: 0 0px;
+    padding: 0px 0 8px 0;
+    text-align: start;
+  }
+
+  .pad-left-right {
+    padding: 0 10px 0 10px
+  }
+  .radio-group {
+    display: inline-flex;
+    /* flex-direction: column; */
+  }
+
+  .example-margin {
+    margin-left: 5px;
+  }
+
+  .price-range {
+    min-width: 50px;
+    max-width: 100px;
+    width: 45%;
+  }
+  .vehicle-type {
+    min-width: 50px;
+    max-width: 100px;
+    width: 80%;
+  }
+
+  .btn-center {
+    text-align: -webkit-center;
+  }

@@ -1,0 +1,287 @@
+<mat-tab-group class="demo-tab-group">
+  <mat-tab label="Initiated">
+    <div class="demo-tab-content" *ngIf="initiateTxnNoData">
+      <mat-card>
+        <mat-card-content>
+          <div class="jumbotron">
+            <h1>0 Item found</h1>
+            <p>You do not have any deliveries in this status. Either you can chech in another tab or create new.</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="demo-tab-content">
+      <div *ngFor="let item of intiateTxnList; let i= index">
+        <mat-card (click)="clickCard(i)">
+          <mat-card-content>
+            <div>
+              <div>
+                <div class="row">
+                  <div class="col-xl-12" style="background:rgba(207, 220, 205, 0.932)">
+                    <strong> Date Range:</strong> {{ item.fromDate | date:'dd-MMM-yyyy' }}
+                    <strong> to </strong> {{ item.toDate | date:'dd-MMM-yyyy' }}
+                  </div>
+
+                </div>
+                <div class="row">
+                  <div class="col-xl-4">
+                    <div>
+                      <strong> Pickup location:</strong>
+                    </div>
+                    <div>
+                      <mat-icon>place</mat-icon>{{ item.fromLoc.sublocality1 }}, {{ item.fromLoc.locality }}, {{item.fromLoc.city}},
+                      {{item.fromLoc.stateLong}}, {{item.fromLoc.countryLong}}-{{item.fromLoc.postalCode}}
+                    </div>
+
+                  </div>
+                  <div class="col-xl-5">
+                    <div>
+                      <strong> Drop location:</strong>
+                    </div>
+                    <div>
+
+                      <mat-icon>arrow_downward</mat-icon> {{ item.toLoc.sublocality1 }}, {{ item.toLoc.locality }}, {{item.toLoc.city}},
+                      {{item.toLoc.stateLong}}, {{item.toLoc.countryLong}}-{{item.toLoc.postalCode}}
+                    </div>
+
+                  </div>
+                  <div class="col-xl-3" *ngIf="item.shared">
+                    <span [title]='itemSummaryNewLine(item.summary)' matTooltipPosition="right">
+                      <strong> Shared Vehicle: </strong>
+                      <strong> Total Items: </strong> {{ item.count }}
+                      <mat-icon class="torch"> highlight</mat-icon>
+                    </span>
+                  </div>
+                  <div class="col-xl-3" *ngIf="!item.shared">
+                    <span [title]='itemSummaryNewLine(item.summary)' matTooltipPosition="right">
+                      <strong>Complete Vehicle </strong>
+                      <mat-icon class="torch1"> directions_bus</mat-icon>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <div *ngIf="expandCard[i]">
+          <!-- below line updated kish added (closed) = "closeCard(i)" -->
+          <app-mytrans-detailed-order-list (closed) = "closeCard(i)" [inputItem]="item"></app-mytrans-detailed-order-list>
+          <!-- end -->
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <!-- <mat-tab label="InProgress">
+       <div class="demo-tab-content">
+          <div *ngFor="let item of acceptShipTxnList; let i= index" (click)="clickCard(i)">
+              <div *ngIf="expandCard[i]"> <br>
+              </div>
+                  <mat-card >
+                          <mat-card-content>
+                            <div>
+                              <div>
+                                <div class="row">
+                                  <div class="col-xl-6">
+                                    <strong> Date Range:</strong> {{ item.fromDate | date:'dd-MMM-yyyy' }}
+                                    <strong> to </strong> {{ item.toDate | date:'dd-MMM-yyyy' }}
+                                  </div>
+                        
+                                </div>
+                                <div class="row">
+                                  <div class="col-xl-4">
+                                    <div>
+                                      <strong> Pickup location:</strong>
+                                    </div>
+                                    <div>
+                                      <mat-icon>place</mat-icon> {{ item.fromLoc.sublocality1 }}, {{ item.fromLoc.locality }}, {{item.fromLoc.administrative_area_level_2}},
+                                      {{item.fromLoc.administrative_area_level_1}}, {{item.fromLoc.country}}-{{item.fromLoc.postal_code}} </div>
+                        
+                                  </div>
+                                  <div class="col-xl-5">
+                                    <div>
+                                      <strong> Drop location:</strong>
+                                    </div>
+                                    <div>
+                                      <mat-icon>arrow_downward</mat-icon> {{ item.toLoc.sublocality1 }}, {{ item.toLoc.locality }}, {{item.toLoc.administrative_area_level_2}},
+                                      {{item.toLoc.administrative_area_level_1}}, {{item.toLoc.country}}-{{item.toLoc.postal_code}} </div>
+                        
+                                  </div>
+                                  <div class="col-xl-3" *ngIf="item.shared">
+                                    
+                                      <strong> Shared Vehicle: </strong>
+                                      <strong> Total Items: </strong> {{ item.count }}
+                                      <mat-icon class="torch"> highlight</mat-icon>
+                                   
+                                  </div>
+                                  <div class="col-xl-3" *ngIf="!item.shared">
+                                    
+                                      <strong>Complete Vehicle </strong>
+                                      <mat-icon class="torch1"> directions_bus</mat-icon>
+                                    
+                                  </div>
+                                </div>
+                                
+                              </div>
+                            </div>
+                          </mat-card-content>
+                          </mat-card>
+                        
+                        <div *ngIf="expandCard[i]"> 
+                            <app-detailed-order-list [inputItem]="item"></app-detailed-order-list>
+                        </div>
+          </div>
+      </div>  
+    </mat-tab> -->
+  <!-- <mat-tab label="Tab 3" disabled>
+      No content  
+    </mat-tab> -->
+  <mat-tab label="Accepted">
+    <div class="demo-tab-content" *ngIf="acceptTxnNoData">
+      <mat-card>
+        <mat-card-content>
+          <div class="jumbotron">
+            <h1>0 Item found</h1>
+            <p>You do not have any deliveries in this status. Either you can chech in another tab or create new.</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="demo-tab-content">
+      <div *ngFor="let item of acceptShipTxnList; let i= index">
+        <div *ngIf="expandCard[i]">
+          <br>
+        </div>
+        <mat-card (click)="clickCard(i)">
+          <mat-card-content>
+            <div>
+              <div>
+                <div class="row">
+                  <div class="col-xl-6">
+                    <strong> Date Range:</strong> {{ item.fromDate | date:'dd-MMM-yyyy' }}
+                    <strong> to </strong> {{ item.toDate | date:'dd-MMM-yyyy' }}
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-4">
+                    <div>
+                      <strong> Pickup location:</strong>
+                    </div>
+                    <div>
+                      <mat-icon>place</mat-icon>{{ item.fromLoc.sublocality1 }}, {{ item.fromLoc.locality }}, {{item.fromLoc.city}},
+                      {{item.fromLoc.stateLong}}, {{item.fromLoc.countryLong}}-{{item.fromLoc.postalCode}}
+                    </div>
+
+                  </div>
+                  <div class="col-xl-5">
+                    <div>
+                      <strong> Drop location:</strong>
+                    </div>
+                    <div>
+
+                      <mat-icon>arrow_downward</mat-icon> {{ item.toLoc.sublocality1 }}, {{ item.toLoc.locality }}, {{item.toLoc.city}},
+                      {{item.toLoc.stateLong}}, {{item.toLoc.countryLong}}-{{item.toLoc.postalCode}}
+                    </div>
+                  </div>
+                  <div class="col-xl-3" *ngIf="item.shared">
+                    <!-- <span [title]='itemSummaryNewLine(item.summary)' matTooltipPosition="right"> -->
+                    <strong> Shared Vehicle: </strong>
+                    <strong> Total Items: </strong> {{ item.count }}
+                    <mat-icon class="torch"> highlight</mat-icon>
+                    <!-- </span> -->
+                  </div>
+                  <div class="col-xl-3" *ngIf="!item.shared">
+                    <!-- <span [title]='itemSummaryNewLine(item.summary)' matTooltipPosition="right"> -->
+                    <strong>Complete Vehicle </strong>
+                    <mat-icon class="torch1"> directions_bus</mat-icon>
+                    <!-- </span> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <div *ngIf="expandCard[i]">
+          <!-- below line updated kish added (closed) = "closeCard(i)" -->
+          <app-mytrans-detailed-order-list (closed) = "closeCard(i)" [inputItem]="item"></app-mytrans-detailed-order-list>
+          <!--end -->
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Completed">
+    <div class="demo-tab-content" *ngIf="completedTxnNoData">
+      <mat-card>
+        <mat-card-content>
+          <div class="jumbotron">
+            <h1>0 Item found</h1>
+            <p>You do not have any deliveries in this status. Either you can chech in another tab or create new.</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="demo-tab-content">
+      <div *ngFor="let item of completedShipTxnList; let i= index">
+        <div *ngIf="expandCard[i]">
+          <br>
+        </div>
+        <mat-card (click)="clickCard(i)">
+          <mat-card-content>
+            <div>
+              <div>
+                <div class="row">
+                  <div class="col-xl-6">
+                    <strong> Date Range:</strong> {{ item.fromDate | date:'dd-MMM-yyyy' }}
+                    <strong> to </strong> {{ item.toDate | date:'dd-MMM-yyyy' }}
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-4">
+                    <div>
+                      <strong> Pickup location:</strong>
+                    </div>
+                    <div>
+                      <mat-icon>place</mat-icon>{{ item.fromLoc.sublocality1 }}, {{ item.fromLoc.locality }}, {{item.fromLoc.city}},
+                      {{item.fromLoc.stateLong}}, {{item.fromLoc.countryLong}}-{{item.fromLoc.postalCode}}
+                    </div>
+
+                  </div>
+                  <div class="col-xl-5">
+                    <div>
+                      <strong> Drop location:</strong>
+                    </div>
+                    <div>
+
+                      <mat-icon>arrow_downward</mat-icon> {{ item.toLoc.sublocality1 }}, {{ item.toLoc.locality }}, {{item.toLoc.city}},
+                      {{item.toLoc.stateLong}}, {{item.toLoc.countryLong}}-{{item.toLoc.postalCode}}
+                    </div>
+                  </div>
+                  <div class="col-xl-3" *ngIf="item.shared">
+                    <!-- <span [title]='itemSummaryNewLine(item.summary)' matTooltipPosition="right"> -->
+                    <strong> Shared Vehicle: </strong>
+                    <strong> Total Items: </strong> {{ item.count }}
+                    <mat-icon class="torch"> highlight</mat-icon>
+                    <!-- </span> -->
+                  </div>
+                  <div class="col-xl-3" *ngIf="!item.shared">
+                    <!-- <span [title]='itemSummaryNewLine(item.summary)' matTooltipPosition="right"> -->
+                    <strong>Complete Vehicle </strong>
+                    <mat-icon class="torch1"> directions_bus</mat-icon>
+                    <!-- </span> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <div *ngIf="expandCard[i]">
+          <!-- below line updated kish added (closed) = "closeCard(i)" -->
+          <app-mytrans-detailed-order-list (closed) = "closeCard(i)" [inputItem]="item"></app-mytrans-detailed-order-list>
+          <!-- end -->
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <!-- <mat-tab label="Tab 6">
+      No content  
+    </mat-tab> -->
+</mat-tab-group>

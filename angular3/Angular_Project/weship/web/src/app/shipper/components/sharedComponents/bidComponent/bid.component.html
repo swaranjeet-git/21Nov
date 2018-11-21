@@ -1,0 +1,16 @@
+<mat-expansion-panel (opened)="true"
+(closed)="false" class="panel-spacing">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            This Bid's placed by: {{bid.name}}.
+        </mat-panel-title>
+        <mat-panel-description>
+            Bid is placed of amount {{bid.amount}} on {{bid.dateString | date:'MMM d, y, h:mm:ss a'}}.
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="col-xl-6">
+        
+        <textarea style="height: 157px; width: 157px">Welcome to chat window.</textarea>
+    </div>
+</mat-expansion-panel>
+

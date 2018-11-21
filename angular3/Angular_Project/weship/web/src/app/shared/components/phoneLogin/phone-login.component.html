@@ -1,0 +1,41 @@
+<div id="recaptcha-container"></div>
+<div *ngIf="!generateOTP">
+  <div class="row">
+    <div class="col-xl-5" style="padding-right: 0">
+        <mat-select placeholder="Favorite food" [(ngModel)]="phoneNumber.country" style="height: 30px;">
+            <mat-option *ngFor="let country of countries" [value]="country.code">
+                {{country.name}}(+{{country.code}})
+            </mat-option>
+          </mat-select>
+      <!-- <select [(ngModel)]="phoneNumber.country" style="height: 30px;">
+        <option *ngFor="let country of countries" [value]="country.code">{{country.name}}(+{{country.code}})</option>
+      </select> -->
+    </div>
+    <div class="col-xl-4">
+      <input  #mobile="ngModel" autofocus style="width: 110px" type="text" [(ngModel)]="phoneNumber.mnumber" placeholder="Mobile Number" (keypress)="onlyNumberKey($event)" number
+        minlength="10" maxlength="10" required>
+    </div>
+
+  </div>
+  <!-- <input type="text" [(ngModel)]="phoneNumber.country"  class="input" placeholder="1"    maxlength="2"> -->
+
+  <!-- <input type="text" [(ngModel)]="phoneNumber.prefix"   class="input" placeholder="555"  maxlength="3"> -->
+  <!-- <input type="text" [(ngModel)]="phoneNumber.line"     class="input" placeholder="5555" maxlength="4"> -->
+
+  <br>
+  <input data-sitekey="6LeA3kMUAAAAAMaxRRLcqlJRQx06mNzGIGX5_CwS"
+  data-callback="disableLogin=false" [disabled]="((!mobile.valid))" class="g-recaptcha btn btn-primary" style="cursor: pointer" type="submit" id="submit_login" (click)="sendLoginCode()"
+    value="Genrate OTP">
+  <!-- <button (click)="sendLoginCode()">Generate OTP</button> -->
+</div>
+
+<div *ngIf="generateOTP">
+  <input type="text" [(ngModel)]="phoneNumber.e164" placeholder="Email / Mobile No. " id="email" name="email" class="loginInputBoxes"
+    style="z-index: 0;overflow: hidden" disabled>
+  <input type="text" [(ngModel)]="verificationCode" placeholder="Enter OTP" id="email" name="email" class="loginInputBoxes"
+    style="z-index: 0;overflow: hidden; background-color: white">
+    <mat-error *ngIf="otpError">
+        {{otpError}}
+      </mat-error>
+  <input class="btn btn-primary" (click)="verifyLoginCode()" style="cursor: pointer" type="submit" id="submit_login" value="SIGN IN">
+</div>

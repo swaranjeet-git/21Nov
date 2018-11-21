@@ -1,0 +1,204 @@
+<div class="container">
+        <div class="myTitle">Transporter Profile</div>
+        <form [formGroup]="myProfile">
+            <div formArrayName="formArray">
+                <br><br>
+                <div class="myLabel">Personal Details</div><br>
+                <div [formGroup]="personalDetails">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input type="text" matInput placeholder="First Name"  required pattern="" 
+                                formControlName="fName" class="ng-dirty ng-touched ng-invalid">
+                            
+                            </mat-form-field>
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input matInput placeholder="Last name"  required formControlName="lName">
+                            </mat-form-field>
+                        </div>
+                        <!-- <div class="col-md-4">
+                                            <mat-form-field>
+                                            <input matInput placeholder="Gender" formControlName="gender">
+                                            </mat-form-field>
+                                    </div> -->
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input matInput placeholder="Email" formControlName="email">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input matInput placeholder="Mobile No"  required formControlName="mobile">
+                                    
+                            </mat-form-field>
+    
+                        </div>
+                    </div>
+    
+                </div><br>
+                <div class="myLabel">Company Details</div><br>
+                <div [formGroup]="companyDetails">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input type="text" matInput placeholder="Company Name"  required formControlName="companyName">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input matInput placeholder="Address"  required formControlName="address">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input matInput placeholder="City"  required formControlName="city">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input matInput placeholder="Country "  required formControlName="country">
+    
+                            </mat-form-field>
+    
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input matInput placeholder="Pincode"  required formControlName="pincode">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div><br>
+            </div> 
+            <div formArrayName="vehicles">
+                <div class="myLabel">Vehicle Details</div>
+                    <div *ngFor="let vehicle of vehicleForms.controls, let x =index" [formGroupName]="x">  
+                       <mat-expansion-panel class="row">
+                            <mat-expansion-panel-header class="col-md-12">
+                                <mat-panel-title class="col-md-6, myLabel" >
+                                        Vehicle #{{x+1}}          
+                                </mat-panel-title> 
+                                <div class="col-md-4">
+                                        <button mat-raised-button color="warn" (click)="deleteVehicle(x)">
+                                                Delete
+                                        </button>
+                                </div>                                 
+                                                                     
+                            </mat-expansion-panel-header>
+                                    <div [formGroup]="vehicle">
+                                        <div class="row">
+                                                <div class="col-md-12">
+                                                    <div formGroupName="vehicleMaster">
+                                                        <div class="row">
+                                                            <div class="col-md-5">
+                                                                <div formGroupName="parent">
+            
+                                                                    <select class="form-control" placeholder="Vehicle Id.." required formControlName="id" (change)="selectedBrand($event.target.value)">
+                                                                        <option *ngFor="let brand of brands" value={{brand.id}}>
+                                                                            {{brand.brandName}}
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-5">
+                                                                <select class="form-control" placeholder="Vehicle Name.." required formControlName="id">
+                                                                    <option *ngFor="let vehicleName of vehicleNames" value={{vehicleName.id}}>
+                                                                        {{vehicleName.vehicleName}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div><br>
+            
+                                                    </div>
+                                                </div><br>
+                                                <div class="col-md-6">
+                                                        <mat-radio-group>
+                                                            <mat-radio-button value="1">Covered</mat-radio-button>
+                                                            <mat-radio-button value="2">Not Covered</mat-radio-button>
+                                                        </mat-radio-group>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <mat-form-field>
+                                                        <!-- <input type="text" matInput placeholder=" Vehicle Reg No" required formControlName="vehicleRegNo" autofocus=""> -->
+                                                        <input type="text" matInput placeholder="Vehicle Reg No" required formControlName="vehicleRegNo">
+                                                    </mat-form-field>
+                                                </div>
+                                               
+                                            </div><br>
+                                            <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div formGroupName="vehicleDoc">
+                                                            <div class="row">
+                                                                <div class="col-md-5">
+                                                                    <div formGroupName="documentType">
+                                                                        <select class="form-control" placeholder="Document type..."required formControlName="id">
+                                                                            <option *ngFor="let docType of docTypes" value={{docType.id}}>
+                                                                                {{docType.docType}}
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <mat-form-field>
+                                                                        <input matInput placeholder="Document No" required formControlName="docNo">
+                                                                    </mat-form-field>
+                                                                </div>
+                                                            </div><br>
+                                                            <div class="row">
+                                                                    <div class="col-md-4">
+                                                                            <mat-form-field>
+                                                                            <input matInput placeholder="Description" required formControlName="desc" >
+                                                                            </mat-form-field>
+                                                                    </div>                                                                                                              
+                                                            </div><br>
+                                                            <div class="row">
+                                                                <!-- <div class="col-md-5">
+                                                                        <button mat-raised-button color="warn" (click)="deleteVehicle(x)">
+                                                                                Delete
+                                                                        </button>
+                                                                </div>                                                     -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                </div>
+                                   
+                       </mat-expansion-panel>
+                    </div>
+            </div><br>
+     
+               
+                        <div class="row">
+                            <div class="col-md-4">
+                                 <button mat-raised-button color="primary" (click)="addvehicle()">
+                                      Add Vehicle
+                                 </button>
+                            </div>
+                            <div class="col-md-4">
+                                    <button mat-raised-button  color="primary" (click)="addPersonalDetails()">
+                                         Save
+                                    </button> 
+                            </div>
+                            <div class="col-md-4">
+                                <nav>
+                                    <button mat-raised-button color="primary" routerLink="/transporter/edit" routerLinkActive="active">
+                                         Edit Profile
+                                    </button> 
+                                </nav>
+                            </div>
+                        </div>
+    
+    
+    
+                
+        </form>
+    </div>

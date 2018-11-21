@@ -1,0 +1,162 @@
+<div class="overlay" *ngIf="progressSpinner">
+  <div class="overlay__wrapper">
+    <div class="overlay__spinner">
+      <mat-progress-spinner class="example-margin" [color]="'primary'" [mode]="'indeterminate'" diameter=50>
+      </mat-progress-spinner>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <form [formGroup]="myForm">
+    <mat-horizontal-stepper linear formArrayName="formArray">
+      <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
+        <ng-template matStepLabel>My Details</ng-template>
+        <!-- <div class="form-group" formGroupName="formArray.get([0])"> -->
+        <mat-form-field class="form-group  col-xl-4" >
+          <input matInput  placeholder="First name" value ="" formControlName="fName" autofocus="">
+          <!-- <mat-error *ngIf="formArray?.get([0]).get('fName').hasError('required')">
+            First name is
+            <strong>required</strong>
+          </mat-error> -->
+        </mat-form-field>
+        <mat-form-field class="form-group  col-xl-4">
+          <input matInput placeholder="Last name" formControlName="lName">
+          <!-- <mat-error *ngIf="formArray?.get([0]).get('lName').hasError('required')">
+            Last name is
+            <strong>required</strong>
+          </mat-error> -->
+        </mat-form-field>
+        <mat-form-field class="form-group  col-xl-4">
+          <input matInput placeholder="Email" formControlName="email" [errorStateMatcher]="matcher">
+          <!-- <mat-error *ngIf="formArray?.get([0]).get('email').hasError('email') && !formArray?.get([0]).get('email').hasError('required')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="formArray?.get([0]).get('email').hasError('required')">
+            Email is
+            <strong>required</strong>
+          </mat-error> -->
+        </mat-form-field>
+        <mat-form-field class="form-group  col-xl-4">
+          <input matInput placeholder="Mobile number" formControlName="mobile">
+          <mat-error *ngIf="( (formArray?.get([0]).get('mobile').hasError('pattern')) 
+                    || (formArray?.get([0]).get('mobile').hasError('minlength')) 
+                    || (formArray?.get([0]).get('mobile').hasError('maxlength')) ) 
+                && !formArray?.get([0]).get('mobile').hasError('required')">
+            Please enter a 10 digit Mobile number.
+          </mat-error>
+          <mat-error *ngIf="formArray?.get([0]).get('mobile').hasError('required')">
+            Mobile number is
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext class="floatRight" >Next</button>
+          <!-- <button mat-button matStepperNext class="floatRight" [disabled]="!formArray?.get([0]).valid">Next</button> -->
+        </div>
+        <!-- </div> -->
+      </mat-step>
+      <!-- <mat-step formGroupName="1" [stepControl]="formArray?.get([1])">
+          <ng-template matStepLabel>Interests</ng-template>
+          <h3>More Interested In</h3>
+      </mat-step> -->
+      <mat-step formGroupName="1" [stepControl]="formArray?.get([1])">
+        <ng-template matStepLabel>My Business</ng-template>
+        <!-- <div class="form-group" formGroupName="1" formGroupName="formArray.get([1])"> -->
+        <mat-form-field class="col-xl-4">
+          <input matInput placeholder="Company Name" formControlName="companyName" autofocus="">
+        </mat-form-field>
+        <mat-form-field class="col-xl-4">
+          <input matInput placeholder="Postal Address" formControlName="address">
+        </mat-form-field>
+        <mat-form-field class="col-xl-4">
+          <input matInput placeholder="City name" formControlName="city">
+        </mat-form-field>
+        <mat-form-field class="col-xl-4">
+          <input matInput placeholder="Country" formControlName="country">
+        </mat-form-field>
+        <mat-form-field class="col-xl-4">
+          <input matInput placeholder="Pin Code" formControlName="pincode" maxlength="6">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext class="floatRight" [disabled]="!formArray?.get([1]).valid">Next</button>
+        </div>
+        <!-- </div> -->
+      </mat-step>
+      <mat-step formGroupName="2"  [stepControl]="formArray?.get([2])">
+        <ng-template matStepLabel>My Interest</ng-template>
+        <h5>More Interested In</h5>
+        <div class="row">
+          <div style="padding-top: 10px; padding-right: 100px" *ngFor="let serviceOption of serviceOptions; let i=index " class="floatLeft"
+            [ngClass]="{'col-xl-12': i==0, 'col-xl-4': i>0  }">
+            <h5 *ngIf="i==0">
+              <input [disabled]='disableAll && (i > 0)' class="col-xl-4" style="inline-size: 20px" type="checkbox" class="mdc-checkbox__native-control"
+                value={{i}} (click)=showEvent($event.target.value) /> {{serviceOption.name}}</h5>
+            <h6 *ngIf="i>0">
+              <input [disabled]='disableAll && (i > 0)' class="col-xl-4" style="inline-size: 20px" type="checkbox" class="mdc-checkbox__native-control"
+                value={{i}} (click)=showEvent($event.target.value) /> {{serviceOption.name}}</h6>
+          </div>
+        </div>
+        <div style="padding-top: 30px">
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext class="floatRight" [disabled]="!formArray?.get([2]).valid">Next</button>
+        </div>
+      </mat-step>
+
+      <mat-step formGroupName="3" [stepControl]="formArray?.get([3])">
+        <ng-template matStepLabel>My Vehicle</ng-template>
+        <h5>Vehicle Details</h5>
+        <div class="row">
+          <div class="col-xl-4" formGroupName="vehicleMaster">
+            <div>
+              <h2></h2>
+              <div formGroupName="parent">
+                <select class="form-control" required formControlName="id" (change)="selectVehicle($event.target.value)">
+                  <option *ngFor="let brand of brands" value={{brand.id}}>
+                    {{brand.brandName}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            
+            <div>
+              <h2></h2>
+              <select class="form-control" required formControlName="id">
+                <option *ngFor="let vehicleName of vehicleNames" value={{vehicleName.id}}>
+                  {{vehicleName.vehicleName}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-xl-4">
+            <mat-form-field style="text-align: center">
+              <input matInput placeholder=" Vehicle Reg No" required formControlName="vehicleRegNo" autofocus="">
+            </mat-form-field>
+            <app-imguploadtest (processedFiles)=uploadImage($event)>
+            </app-imguploadtest>
+           
+          </div>
+
+          <div formGroupName="vehicleDoc" class="col-xl-4">
+            <div formGroupName="documentType">
+              <select class="form-control" required formControlName="id">
+                <option *ngFor="let docType of docTypes" value={{docType.id}}>
+                  {{docType.docType}}
+                </option>
+              </select>
+            </div>
+            <mat-form-field class="col-xl-6">
+              <input matInput placeholder="Document No" required formControlName="docNo" autofocus="">
+            </mat-form-field>
+            <mat-form-field class="col-xl-6">
+              <input matInput placeholder="Description" required formControlName="desc" autofocus="">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="floatRight">
+          <button mat-button (click)="saveData()" [disabled]="!formArray?.get([3]).valid">Save</button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </form>
+</div>

@@ -1,0 +1,26 @@
+<form [formGroup]="submitForm">
+  <mat-card class="example-card">
+    <div class="col-xl-12">
+      <app-map-location  PlaceHolder = "Your Current Location" (latlngChange)="FromLocChange($event)"></app-map-location>
+      <app-map-location [required] = "false" PlaceHolder = "To Location" (latlngChange)="ToLocChange($event)"></app-map-location>
+      
+      <div class="form-group col-xl-12">
+        <div >DELIVERY DATE RANGE
+          <div>
+            <mat-form-field>
+              <input matInput required [matDatepicker]="picker1" [min]="minDate" placeholder="From Date" formControlName="fromDate">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput required [matDatepicker]="picker2" [min]="submitForm.get('fromDate').value" placeholder="To Date" formControlName="toDate">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</form>

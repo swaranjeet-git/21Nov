@@ -1,0 +1,189 @@
+<div>
+    <br>
+
+    <!-- <mat-drawer-container class="demo-drawer-container" class="example-container">
+        <mat-drawer #start mode="side" class="expand"> -->
+    <p>
+        <!-- <button mat-button (click)="sidenav.toggle()">Close Profile</button> -->
+        <strong>My Profile</strong>
+    </p>
+
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <strong> Personal Details </strong>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div *ngIf="!personalDetailEdit">
+                <div> Name: {{user.fName}} {{user.lName}}
+                    <mat-icon class="editLink" (click)="personalDetailEdit = !personalDetailEdit">border_color</mat-icon>
+                </div>
+                <p>Email : {{user.email}}</p>
+                <p>Contact No : {{user.mobile}}</p>
+                <p></p>
+            </div>
+            <div *ngIf="personalDetailEdit">
+                <form [formGroup]="perDetailsForm">
+                    <div>
+                        <p>
+                            <mat-form-field>
+                                <input matInput placeholder="First name" formControlName="fName">
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <input matInput placeholder="Last name" formControlName="lName">
+                            </mat-form-field>
+                        </p>
+                        <p>
+                            <mat-form-field>
+                                <input matInput placeholder="Email" formControlName="email">
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <input matInput placeholder="Mobile No" formControlName="mobile">
+                            </mat-form-field>
+                        </p>
+
+                    </div>
+                </form>
+
+                <button mat-raised-button class="mat-primary" (click)="editPerDetails()">Save</button>
+                <button mat-raised-button class="mat-warn" (click)="cancelDetails('0')">Cancel</button>
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <strong>Company Details</strong>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div *ngIf="!companyDetailEdit">
+                <div>Company Name : {{company.companyName}}
+                    <mat-icon class="editLink" (click)="companyDetailEdit = !companyDetailEdit">border_color</mat-icon>
+                </div>
+                <p>Address : {{company.address}}</p>
+                <p>City : {{company.city}}</p>
+                <p>Country : {{company.country}}</p>
+                <p>PIN Code : {{company.pincode}}</p>
+            </div>
+            <div *ngIf="companyDetailEdit">
+                <form [formGroup]="comDetailsForm">
+                    <div>
+                        <p>
+                            <mat-form-field>
+                                <input matInput placeholder="Company Name" formControlName="companyName">
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <input matInput placeholder="Address" formControlName="address">
+                            </mat-form-field>
+                        </p>
+                        <p>
+                            <mat-form-field>
+                                <input matInput placeholder="City" formControlName="city">
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <input matInput placeholder="Country" formControlName="country">
+                            </mat-form-field>
+                        </p>
+                        <p>
+                            <mat-form-field>
+                                <input matInput placeholder="Pincode" formControlName="pincode">
+                            </mat-form-field>
+                        </p>
+
+                    </div>
+                </form>
+
+                <button mat-raised-button class="mat-primary" (click)="editComDetails()">Save</button>
+                <button mat-raised-button class="mat-warn" (click)="cancelDetails('1')">Cancel</button>
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <strong>Vehicle Details</strong>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div *ngIf="!vehicleDetailEdit">
+                <div>Reg No : {{vehicleDetail.vehicleRegNo}}
+                    <mat-icon class="editLink" (click)="vehicleDetailEdit = !vehicleDetailEdit">border_color</mat-icon>
+                </div>
+                <p>Name : {{vehicleDetail.vehicleMaster.vehicleName}}</p>
+                <p>Brand : {{vehicleDetail.vehicleMaster.brandName}}</p>
+                <p>Type : {{vehicleDetail.vehicleMaster.type}}</p>
+                <p>Size :{{vehicleDetail.vehicleMaster.size}}</p>
+                <p>Capacity : {{vehicleDetail.vehicleMaster.capacity}}</p>
+                <h6>Document:</h6>
+                <p>Doc No : {{vehicleDetail.vehicleDoc.docNo}}</p>
+                <p>Desc : {{vehicleDetail.vehicleDoc.desc}}</p>
+            </div>
+            <div *ngIf="vehicleDetailEdit">
+                <form [formGroup]="vechDetailsForm">
+                    <div>
+                        <p>
+                            <mat-form-field>
+                                <input matInput placeholder="Vehicle Reg No" formControlName="vehicleRegNo">
+                            </mat-form-field>
+                        </p>
+                        <div formGroupName="vehicleMaster">
+                            <div formGroupName="parent">
+                                <mat-select class="form-control" formControlName="id" (change)="selectVehicle($event.value)">
+                                    <mat-option *ngFor="let brand of brands" [value]="brand.id">{{brand.brandName}}</mat-option>
+                                </mat-select>
+                            </div>
+                            <mat-select class="form-control" formControlName="id">
+                                <mat-option *ngFor="let vehicleName of vehicleNames" [value]="vehicleName.id"> {{vehicleName.vehicleName}}</mat-option>
+                            </mat-select>
+                            <p>
+                                <mat-form-field>
+                                    <input matInput placeholder="Type" formControlName="type">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <input matInput placeholder="Capacity" formControlName="capacity">
+                                </mat-form-field>
+                            </p>
+                            <p>
+                                <mat-form-field>
+                                    <input matInput placeholder="Size" formControlName="size">
+                                </mat-form-field>
+                            </p>
+                        </div>
+                        <div formGroupName="vehicleDoc">
+                            <p formGroupName="documentType">
+                                <mat-select class="form-control" formControlName="id">
+                                    <mat-option *ngFor="let doc of docTypes" [value]="doc.id">{{doc.docType}}</mat-option>
+                                </mat-select>
+                            </p>
+                            <p>
+                                <mat-form-field>
+                                    <input matInput placeholder="Document No" formControlName="docNo">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <input matInput placeholder="Description" formControlName="desc">
+                                </mat-form-field>
+                            </p>
+                        </div>
+                    </div>
+                </form>
+                <button mat-raised-button class="mat-primary" (click)="editVechDetails()">Save</button>
+                <button mat-raised-button class="mat-warn" (click)="cancelDetails('2')">Cancel</button>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <!-- </mat-drawer> -->
+
+    <!-- <div class="demo-drawer-content">
+            <div>
+                <button mat-raised-button class="mat-primary" (click)="start.toggle(); isOpen = !isOpen "> {{ isOpen ? "< Close ": " Open " }} Profile {{ isOpen ? "": ">" }} </button>
+            </div>
+        </div> -->
+    <!-- <mat-sidenav-content>
+        <p><button mat-raised-button class="mat-primary" mat-button (click)="sidenav.toggle()"> {{namechange}} Profile</button></p>
+      </mat-sidenav-content> -->
+    <!-- </mat-drawer-container> -->
+
+
+</div>

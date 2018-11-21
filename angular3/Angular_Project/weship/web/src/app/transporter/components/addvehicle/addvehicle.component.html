@@ -1,0 +1,181 @@
+<div class="container">
+  <!-- kish add on 16March-->
+    <div class="row" *ngIf="successFlag">
+    <div class="col-md-12">
+      <h3>Vehicle Added Successfully</h3>
+    </div>
+    <div class="col-md-12">
+        <button mat-raised-button color="primary"(click)="addNewVehicle()">Add New Vehicle</button>
+    </div>
+  </div>
+  <!-- end kish add on 16March-->
+  <div class="row" *ngIf="!successFlag">
+    <div class="col-md-12">
+      <h3>Add Vehicle Form</h3>
+    </div>
+  </div>
+<!-- updated kish add on 16March-->
+  <div class="row" *ngIf="!successFlag" style="padding-top: 20px">
+    <!-- end updated kish add on 16March-->
+      <form [formGroup]="addVehicleForm">
+        <div class="col-md-12">
+          <div class="row">
+              <div class="col-md-4">
+        
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Vehicle Name" required formControlName="vName">
+                  </mat-form-field>
+                  
+          </div>
+          <div class="col-md-4">
+              <div formGroupName="parent">
+              <mat-form-field>
+                  <mat-select placeholder="Brand Name" required formControlName="id">
+                    <mat-option style="text-align: center">Select</mat-option>  
+                    <mat-option style="text-align: center" *ngFor="let brand of brands" [value]="brand.id">
+                      {{ brand.brandName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field>
+                <input matInput type="text" placeholder="Wheel Type" [(ngModel)]="value"
+                    formControlName="vType" />
+                    
+              <!-- <mat-select placeholder="Wheel Type"   formControlName="vType">
+                <mat-option style="text-align: center">Select</mat-option>
+                <mat-option style="text-align: center" *ngFor="let wheelType of wheelTypes" [value]="wheelType">
+                  {{ wheelType }}
+                </mat-option>
+              </mat-select> -->
+            </mat-form-field>
+          </div>
+      </div>
+    </div>
+    <div class="col-md-12" style="padding-top: 20px">
+      <div class="row">
+        <div class="col-md-4">
+            <h6>Height</h6>
+          <div class="row">
+            <div class="col-me-2" style="padding-right: 10px">
+                <mat-form-field style="width: 100px; text-align: center">
+                    <mat-select placeholder="Feet"  formControlName="vHeightFeet">
+                        <mat-option style="text-align: center">Select</mat-option>
+                      <mat-option style="text-align: center" *ngFor="let feet of arrayFeet" [value]="feet">
+                        {{ feet }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div class="col-me-2" style="padding-right: 10px">
+                <mat-form-field style="width: 100px; text-align: center">
+                    <mat-select placeholder="Inch"  formControlName="vHeightInch">
+                        <mat-option style="text-align: center"> Select</mat-option>
+                      <mat-option style="text-align: center" *ngFor="let inch of arrayInch" [value]="inch">
+                        {{ inch }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+            <h6>Length</h6>
+            <div class="row">
+                <div class="col-me-2" style="padding-right: 10px">
+                    <mat-form-field style="width: 100px; text-align: center">
+                        <mat-select placeholder="Feet"  formControlName="vLenghtFeet">
+                            <mat-option style="text-align: center">Select</mat-option>
+                            <mat-option style="text-align: center" *ngFor="let feet of arrayFeet" [value]="feet">
+                                {{ feet }}
+                             </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+                <div class="col-me-2" style="padding-right: 10px">
+                    <mat-form-field style="width: 100px; text-align: center">
+                        <mat-select placeholder="Inch"  formControlName="vLenghtInch">
+                            <mat-option style="text-align: center">Select</mat-option>
+                            <mat-option style="text-align: center" *ngFor="let inch of arrayInch" [value]="inch">
+                                {{ inch }}
+                              </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4">
+            <h6>Width</h6>
+              <div class="row">
+                  <div class="col-me-2" style="padding-right: 10px">
+                      <mat-form-field style="width: 100px; text-align: center">
+                          <mat-select placeholder="Feet"  formControlName="vWidthFeet">
+                              <mat-option style="text-align: center">Select</mat-option>
+                              <mat-option style="text-align: center" *ngFor="let feet of arrayFeet" [value]="feet">
+                                  {{ feet }}
+                              </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                  </div>
+                  <div class="col-me-2" style="padding-right: 10px">
+                      <mat-form-field style="width: 100px; text-align: center">
+                          <mat-select placeholder="Inch"  formControlName="vWidthInch">
+                              <mat-option style="text-align: center">Select</mat-option>
+                              <mat-option style="text-align: center" *ngFor="let inch of arrayInch" [value]="inch">
+                                  {{ inch }}
+                                </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+        <h6>Weight</h6>
+        <div class="row">
+            <div class="col-md-2">
+                <mat-form-field style="width: 100px; text-align: center">
+                    <mat-select placeholder="Ton"  formControlName="vWeightTon">
+                      <mat-option style="text-align: center"> Select</mat-option>
+                      <mat-option style="text-align: center" *ngFor="let ton of arrayTon" [value]="ton">
+                        {{ ton }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div class="col-md-2">
+                <mat-form-field style="width: 100px; text-align: center">
+                    <mat-select placeholder="100Kg"  formControlName="vWeightQuintal">
+                        <mat-option style="text-align: center">Select</mat-option>
+                      <mat-option style="text-align: center" *ngFor="let quintal of array100Kg" [value]="quintal">
+                        {{ quintal }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div class="col-md-2">
+                <mat-form-field style="width: 100px; text-align: center">
+                    <mat-select placeholder="Kg"  formControlName="vWeightKg">
+                        <mat-option style="text-align: center">Select</mat-option>
+                      <mat-option style="text-align: center" *ngFor="let kg of arrayKg" [value]="kg">
+                        {{ kg }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12" style="text-align: center; padding-top: 30px">
+        <app-imguploadtest (processedFiles)=uploadImage($event)>
+          </app-imguploadtest>
+    </div>
+    <div class="col-md-12" style="text-align: center; padding-top: 30px">
+        <button mat-raised-button color="primary"(click)="addVehicle()" [disabled]="!addVehicleForm.valid">Add Vehicle</button>
+         
+    </div>
+  </form>
+  </div>
+</div>

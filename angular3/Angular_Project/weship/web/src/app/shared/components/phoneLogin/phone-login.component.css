@@ -1,0 +1,31 @@
+.rc-anchor-checkbox-label
+{
+    width: 90px !important;    
+}
+
+.rc-anchor-content
+{
+    width: 142px !important;    
+}
+
+#submit_login {
+    width: 100%;
+    margin-top: 4%;
+    font-size: 16px;
+    background-color: #ee7f0a;
+    border-color: #ee7f0a;
+    box-shadow: 1px 1px 5px #888;
+    transition: 0.5s;
+}
+.mat-horizontal-content-container {
+    overflow: hidden;
+    padding: 0 0 0 0;
+}
+
+.loginInputBoxes {
+    border: 1px solid #ccc;
+    font-size: medium;
+    width: 100%;
+    padding: 4%;
+    background-color: #F4F4F4;
+}

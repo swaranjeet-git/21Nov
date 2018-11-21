@@ -1,0 +1,20 @@
+<div class="form-group ">
+  <mat-form-field class="field-width col-xl-12">
+    <div class=" map-panel ">
+
+      <input [required]="required" matInput [placeholder]="userPlaceHolder" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
+        class=" form-control map-search" #searchMap [formControl]="googleLocation" >
+      <mat-icon (click)="expandMap()">map</mat-icon>
+
+    </div>
+    <mat-expansion-panel [expanded]="!mapCollaps">
+      <div>
+        <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom" (centerChange)="mapChangeCenter($event)"
+          (idle)="activeNow($event)">
+          <agm-marker [latitude]="latitude" [longitude]="longitude" [draggable]="true"></agm-marker>
+        </agm-map>
+        <strong>Selected Location :</strong> {{locName}}
+      </div>
+    </mat-expansion-panel>
+  </mat-form-field>
+</div>

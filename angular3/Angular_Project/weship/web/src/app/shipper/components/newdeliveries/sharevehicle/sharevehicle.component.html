@@ -1,0 +1,95 @@
+<!-- <div class="page-title-text">
+  <h3>New Delivery</h3>
+</div> -->
+<!-- <div class="card">
+  <div class="card-header"> -->
+<!-- <h5 class="card-title">Choose Category</h5> -->
+<!-- <span *ngFor="let click of clicked; let i=index; let islast=last" class="">
+      <a *ngIf="!islast else lastLabel" rel="nofollow" routerLink="." (click)="showcategorynav(click, i)">
+        {{click.name}}>
+      </a>
+      <ng-template #lastLabel>{{click.name}} :</ng-template>
+
+    </span>
+  </div>
+</div> -->
+<!-- <app-applienceform></app-applienceform>
+<app-furnitureform></app-furnitureform>
+<app-vehicleform></app-vehicleform> -->
+<div class="overlay" *ngIf="progressSpinner">
+  <div class="overlay__wrapper">
+    <div class="overlay__spinner">
+      <mat-progress-spinner class="example-margin" [color]="'primary'" [mode]="'indeterminate'" diameter=50>
+      </mat-progress-spinner>
+    </div>
+  </div>
+</div>
+
+<div>
+  <!-- <a routerLink="bidlist/1">bid link</a> -->
+  <!-- <h3>Create Listing</h3> -->
+  <mat-horizontal-stepper [linear]="true" style="background: lightgray">
+    <mat-step label="Create your List" [stepControl]="itemForms">
+      <form [formGroup]="itemForms">
+        <div class="container">
+
+          <mat-accordion class="example-headers-align">
+            <mat-expansion-panel *ngFor="let item of addInputs;let i = index" [expanded]="step === i" (opened)="setStep(i)">
+
+              <mat-expansion-panel-header>
+                <mat-panel-title class="col-xl-4">
+                  {{item.title}}
+                </mat-panel-title>
+
+                <mat-panel-description class="col-xl-8">
+                  Click to expand/collapse details
+                  <mat-error *ngIf="item.selectedCategory && itemForms.controls[i].invalid" class="col-xl-8" style="text-align: end;">
+                    <strong> Error! </strong>
+                  </mat-error>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <!-- <mat-card class="example-card"> -->
+              <app-categorySelectorform (select)="setCategory($event, i)" *ngIf="!item.selectedCategory"></app-categorySelectorform>
+              <app-vehicleform (formSubmit)="formSubmit($event, i)" (changeCat)="setCategory($event, i)" *ngIf="item.selectedCategory ==='vehicle'"></app-vehicleform>
+              <app-appliancesform (formSubmit)="formSubmit($event, i)" (changeCat)="setCategory($event, i)" *ngIf="item.selectedCategory==='appliances'"></app-appliancesform>
+              <app-furnitureform (formSubmit)="formSubmit($event, i)" (changeCat)="setCategory($event, i)" *ngIf="item.selectedCategory ==='furniture'"></app-furnitureform>
+              <app-animalform (formSubmit)="formSubmit($event, i)" (changeCat)="setCategory($event, i)" *ngIf="item.selectedCategory ==='animal'"></app-animalform>
+              <app-householdform (formSubmit)="formSubmit($event, i)" (changeCat)="setCategory($event, i)" *ngIf="item.selectedCategory ==='household'"></app-householdform>
+              <app-othersform (formSubmit)="formSubmit($event, i)" (changeCat)="setCategory($event, i)" *ngIf="item.selectedCategory ==='others'"></app-othersform>
+
+              <button *ngIf="i>0" mat-raised-button color="warn" (click)="delListing(i)">
+                <strong>Remove</strong>
+              </button>
+              <button *ngIf="item.selectedCategory" mat-raised-button color="primary" (click)="addSameItem(i)">
+                Add similer Item
+              </button>
+              <!-- </mat-card> -->
+            </mat-expansion-panel>
+          </mat-accordion>
+
+          <div class="row">
+            <div class="col-xl-6">
+            <button mat-raised-button color="primary" (click)="addNewItem()">
+              Add New Item
+            </button>
+            </div>
+            <div class="col-xl-6" style="text-align: right">
+            <button mat-button matStepperNext mat-raised-button color="primary" type="button" class="btn btn-primary btn-lg btn-margin"
+              (click)="onContinue()">Continue</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step label="Submit" [stepControl]="locForm">
+      <form [formGroup]="locForm">
+        <app-submitform (formSubmit)="LocationFormSubmit($event)"></app-submitform>
+        <button mat-button matStepperPrevious mat-raised-button color="primary" class="btn btn-primary btn-lg btn-margin">Back</button>
+        <button mat-button matStepperNext mat-raised-button color="primary" type="button" class="btn btn-primary btn-lg btn-margin"
+          (click)="onSubmit()">Save</button>
+      </form>
+    </mat-step>
+  </mat-horizontal-stepper>
+
+  <div>

@@ -1,0 +1,11 @@
+<h3>I am in bidlist</h3>
+<div style="margin:30px;">
+    <app-shp-order-detail [orderData]="orderData"></app-shp-order-detail>
+
+    <div *ngIf="orderData">
+        <div>Total {{orderData.bid.length}} bids placed against your order.</div>
+        <mat-accordion>
+            <div *ngFor="let bid of orderData.bid" class="bids-for-order" [bid]="bid" class="abc"></div>
+        </mat-accordion>
+    </div>
+</div>

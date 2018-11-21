@@ -1,0 +1,155 @@
+<!-- Start Peogress Spinner, need to create common component -->
+<div class="overlay" *ngIf="progressSpinner">
+  <div class="overlay__wrapper">
+    <div class="overlay__spinner">
+      <mat-progress-spinner class="example-margin" [color]="'primary'" [mode]="'indeterminate'" diameter=50>
+      </mat-progress-spinner>
+    </div>
+  </div>
+</div>
+<!--End Peogress Spinner -->
+<div>
+  <h5>Vehicle Request Form</h5>
+</div>
+<br>
+
+<div>
+  <form [formGroup]="submitForm">
+    <mat-card class="example-card">
+      <div class="row">
+        <div class="col-xl-6">
+          <strong>
+            <label>Vehicle: </label>
+          </strong>
+          <mat-radio-group formControlName="covered">
+            <mat-radio-button value="true">Covered</mat-radio-button>
+            <mat-radio-button value="false">Non-Covered</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6">
+          <mat-form-field class="example-full-width">
+            <mat-select placeholder="Select Brand" (change)="getVehicle($event.value)" formControlName="brandId">
+              <mat-option *ngFor="let brand of brands" [value]="brand.id">
+                {{brand.brandName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-select placeholder="Select Vehicle" formControlName="vehicleId" (change)="getVehicleDetails($event.value)">
+              <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.id">
+                {{vehicle.vehicleName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+        </div>
+        <!-- <div *ngIf="isSVDFlag"> -->
+        <div *ngIf="isSVDFlag" class="col-xl-4">
+          <div style="font-weight: bold">
+            Brand : {{vehicleObj.brandName}}
+          </div>
+          <div style="font-weight: bold">
+            Vehicle : {{vehicleObj.vehicleName}}
+          </div>
+          <div style="font-weight: bold">
+            Capacity : {{vehicleObj.capacity}}
+          </div>
+          <div style="font-weight: bold">
+            Size : {{vehicleObj.size}}
+          </div>
+        </div>
+        <div *ngIf="isSVDFlag" class="col-xl-2  ">
+          <img src="{{vehicleImgaeUrl(vehicleObj.imageUrl)}}" alt="Smiley face" height="100" width="150">
+        </div>
+        <!-- </div> -->
+
+
+      </div>
+      <div class="row">
+        <div class="form-group col-xl-12">
+          <div>
+            <strong> Vehicle Availability Date Range</strong>
+            <div>
+              <!-- <br> -->
+              <mat-form-field class="example-date-full-width">
+                <input matInput required [matDatepicker]="picker1" [min]="minDate" placeholder="From Date" formControlName="fromDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field class="example-date-full-width">
+                <input matInput required [matDatepicker]="picker2" [min]="submitForm.get('fromDate').value" placeholder="To Date" formControlName="toDate">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-8">
+          <div>
+            <strong> Vehicle Availability Location</strong>
+          </div>
+          <app-map-location PlaceHolder="From Location" (latlngChange)="FromLocChange($event)"></app-map-location>
+          <app-map-location PlaceHolder="To Location" (latlngChange)="ToLocChange($event)" [required]="false"></app-map-location>
+        </div>
+      </div>
+
+      <div class="col-xl-12">
+        <mat-form-field class="col-xl-8">
+          <textarea matInput formControlName="summary" placeholder="Description"></textarea>
+        </mat-form-field>
+      </div>
+
+
+      <div style="text-align: center; padding-top: 10px">
+        <button mat-raised-button color="primary" (click)="goToDashboard()">Cancel</button>
+
+        <button mat-raised-button color="primary" (click)="editRequestSubmit()">Save</button>
+      </div>
+    </mat-card>
+
+
+  </form>
+</div>
+
+
+
+
+
+<!-- <div class="card">
+    <div>
+      <h5 class="card-title">Choose Vehicle</h5>
+      <span *ngFor="let click of clicked; let i=index; let islast=last" class="">
+        <a *ngIf="!islast" rel="nofollow" routerLink="." (click)="showcategorynav(click, i)">
+          {{click.vehicleName}}>
+        </a>
+        <ng-template #lastLabel>{{click.vehicleName}} :</ng-template>
+  
+      </span>
+    </div>
+    <div class="card-body row">
+      <div *ngFor="let category of categories; let i=index" class="col-xl-4" style="padding: 10px">
+      <mat-card>
+        <a rel="nofollow" routerLink="." (click)="showcategory(category)">
+          <div style="display: block; margin: 0 auto">
+            <h4>{{category.vehicleName}}</h4>
+          </div>
+        </a>
+      </mat-card>
+      </div>
+      
+    </div>
+
+    <div class="card-body row" *ngIf="showForm">
+      <h5>Please Submit Request, with below Info</h5>
+    </div>
+  
+  </div>
+
+   -->

@@ -1,0 +1,26 @@
+.demo-tab-group {
+  border: 1px solid #e8e8e8;
+}
+
+.demo-tab-content {
+  padding: 16px;
+}
+
+.flip {
+  -webkit-transform: rotate(180deg) translateX(-3px);
+}
+.torch {
+-webkit-transform: rotate(225deg) translateX(-3px);
+}
+.mat-tooltip {
+white-space: pre-line;
+}
+mat-card:hover {
+  background: rgba(0,0,0,.04);
+}
+/* .mat-dialog-container-width {
+  width: 300px;
+}
+.mat-dialog-content {
+  width: 300px;
+} */

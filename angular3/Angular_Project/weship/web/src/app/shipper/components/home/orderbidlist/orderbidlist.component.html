@@ -1,0 +1,77 @@
+<div id="id01" #bidorderdetailPanel class="bidorderdetail-modal">
+    <div class="modal-content">
+        <div class="bidorderdetail-container">
+            <div class="container" style="background-color: white">
+                <!-- <form [formGroup]="itemDetailForm"> -->
+                <span style="cursor: pointer" (click)="bidorderdetailPanel.style.display='none'" class="close display-topright" title="Close Modal">&times;</span>
+                <div *ngIf="!successMsg">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 style="color: red">Bid List</h3>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!successMsg"><hr style="background-color: red"></div>
+                
+                <div class="row" *ngIf="transporterTxnData===null || transporterTxnData===undefined || inputItem.bidCount===0">
+                    <div class="col-md-12">
+                        <div>
+                            <h3 style="color: red">OOOOps, No bid against your request</h3>
+                        </div>
+                    </div>
+
+                </div>
+                <div *ngIf="!successMsg">
+                    <div class="row" *ngIf="transporterTxnData!==null || transporterTxnData!==undefined || inputItem.bidCount>0">
+                        <div class="col-md-12" >
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div><strong>Transporter Name</strong></div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div><strong>Email</strong></div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div><strong>Contact No</strong></div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div><strong>Amount</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                </div>
+                </div>
+                
+                
+                <div *ngFor="let orderbid of transporterTxnData">
+                    <div *ngIf="successMsg">
+                        <div style="color: red"><h3>Congratulation, Your request has been accepted.</h3></div> 
+                    </div>
+                    <div *ngIf="!successMsg">
+                    <div class="row" style="padding-top: 15px">
+                        <div class="col-md-12" >
+                            <div class="row" style="background-color: #ecd4d4">
+                                <div class="col-md-3" >
+                                    <div>{{orderbid.bid.transFName}} {{orderbid.bid.transLName}}</div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div>{{orderbid.bid.transEmail}}</div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div>{{orderbid.bid.transMobile}}</div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div>{{orderbid.bid.amount}}</div>
+                                </div>
+                                <div class="col-md-2">
+                                    <button mat-raised-button color="primary" style="line-height: 22px"[disabled]="bidAccepted" (click)="bidAccept(orderbid.id)">Accept</button>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

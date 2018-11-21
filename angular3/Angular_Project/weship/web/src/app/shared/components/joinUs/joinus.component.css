@@ -1,0 +1,57 @@
+@media only screen and (min-width: 48em)
+{
+main {
+    /* background-image: url(https://t.ushipcdn.com/images/road.jpg?t=5.636155192340000000); */
+    background-image: url(/assets/images/joinus.JPG); 
+    background-size: cover;
+    height: 500px;
+}}
+
+.join-container,.join-panel{
+    padding: 16px
+}
+.example-full-width {
+    width: 100%;
+  }
+.join-modal{
+    z-index:3;
+    display:none;
+    padding-top:100px;
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    overflow:auto;
+    background-color:rgb(0,0,0);
+    background-color:rgba(0,0,0,0.4)
+}
+
+
+.modal-content{
+    margin:auto;
+    background-color:#fff;
+    position:relative;
+    padding:0;
+    outline:0;
+    width:500px;
+    /* height: 280px; */
+}
+#submit_login {
+    width: 100%;
+    /* margin-top: 4%; */
+    font-size: 16px;
+    background-color: #ee7f0a;
+    border-color: #ee7f0a;
+    /* padding: 8px; */
+    box-shadow: 1px 1px 5px #888;
+    transition: 0.5s;
+}
+
+.loginInputBoxes {
+    border: 1px solid #ccc;
+    font-size: medium;
+    width: 100%;
+    padding: 4%;
+    /* background-color: #F4F4F4; */
+}

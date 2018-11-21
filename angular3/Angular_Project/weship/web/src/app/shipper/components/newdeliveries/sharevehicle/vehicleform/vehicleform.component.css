@@ -1,0 +1,11 @@
+.example-card{
+      margin-bottom: 20px;
+  }
+
+  .example-full-width {
+  width: 60%;
+}
+
+.mat-form-field,.mat-raised-button {
+  font-size: 20px;
+}

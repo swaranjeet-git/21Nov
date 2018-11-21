@@ -1,0 +1,15 @@
+.page-title-text
+{
+    text-transform: uppercase;
+    padding: 1.875rem 0.9375rem;
+}
+
+a:hover
+{
+    text-decoration: none;
+}
+  
+  .example-header-image {
+    /* background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg'); */
+    background-size: cover;
+  }

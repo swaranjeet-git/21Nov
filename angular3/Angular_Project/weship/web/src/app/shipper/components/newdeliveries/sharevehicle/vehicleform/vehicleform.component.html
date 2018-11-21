@@ -1,0 +1,59 @@
+<a rel="nofollow" routerLink="." (click)="selectedCategoryReset()">Change Category</a> 
+
+<form [formGroup]="myGroup" (ngSubmit)="checkingSubmit()">
+<mat-card class="example-card" >
+
+  <div class="col-xl-12" >
+    <mat-form-field class="field-width col-xl-3">
+      <!--<mat-select placeholder="Select Brand" formControlName="brand">
+        <mat-option *ngFor="let brands of vehicleBrands" [value]="brands.id">
+          {{ brands.brandName }}
+        </mat-option>
+        <mat-option value="999999">Others</mat-option>
+      </mat-select>-->
+      <input  matInput placeholder="Vehicle Brand" formControlName="brand" autofocus="" #myFocus>
+      <mat-error *ngIf="myGroup.get('brand').hasError('required')">
+        Vehicle name is
+        <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="field-width col-xl-3">
+        <input  matInput placeholder="Vehicle Type" formControlName="name" autofocus="">
+        <mat-error *ngIf="myGroup.get('name').hasError('required')">
+          Vehicle Type is
+          <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+  </div>
+  <div class="col-xl-12">
+    <mat-form-field class="field-width col-xl-3">
+      <input matInput placeholder="Registration Number" formControlName="rtoNumber"  formControlName="rtoNumber">
+      <mat-error *ngIf="myGroup.get('rtoNumber').hasError('required')">
+        Registration Number is
+        <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="field-width col-xl-3">
+        <input matInput placeholder="Quantity" formControlName="qty"  formControlName="qty" value=1>
+        <mat-error *ngIf="myGroup.get('qty').hasError('required')">
+          Quantity is
+          <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+  </div>
+  <div>
+    <app-imguploadtest (processedFiles)=uploadImage($event)>
+     </app-imguploadtest>
+      
+      
+    </div>
+  <div class="col-xl-12">
+
+    <mat-form-field class="example-full-width col-xl-12">
+      <textarea matInput placeholder="Description" formControlName="desc"  formControlName="desc"></textarea>
+    </mat-form-field>
+
+  </div>
+
+</mat-card>
+</form>

@@ -1,0 +1,108 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" routerLink="/">Easy Ship</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+        <a class="nav-link" routerLink="/transporter">Home</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+        <a class="nav-link" routerLink="tranasactions">Tranasaction</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+        <a class="nav-link" routerLink="myData">MyProfile</a>
+      </li>
+      <!-- <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Page 1-1</a></li>
+          <li><a href="#">Page 1-2</a></li>
+          <li><a href="#">Page 1-3</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Page 2</a></li> -->
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <!-- <li class="nav-item"><a class="nav-link" href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->
+      <li *ngIf="!loggedInUser" class="nav-item">
+        <a class="nav-link" (click)="showLogin()" style="cursor: pointer">
+          <span class="glyphicon glyphicon-log-in"></span> Login</a>
+          <a class="nav-link" #signup routerLink="joinus" style="display: none"></a>
+      </li>
+      <p *ngIf="loggedInUser" class="nav-item" style="color: white; margin-bottom: 0px;">{{loggedInUser.fName}} {{loggedInUser.lName}}
+        <i class="material-icons">account_circle</i> |
+        <a style="color: white; cursor: pointer" (click)="logout()">Logout</a>
+        <p>
+    </ul>
+  </div>
+</nav>
+
+<!-- <div class="login-container"> -->
+<div id="id01" #loginPanel class="login-modal">
+  <div class="modal-content">
+    <div class="login-container">
+      <!-- <span onclick="document.getElementById('id01').style.display='none'" class="login-button login-display-topright">&times;</span> -->
+      <div class="imgcontainer">
+        <!-- <span style="cursor: pointer" onclick="document.getElementById('id01').style.display='none'" class="close display-topright" -->
+        <span style="cursor: pointer" (click)="loginPanel.style.display='none'" class="close display-topright" title="Close Modal">&times;</span>
+        <img src="assets/images/person.png" alt="Avatar" class="avatar">
+      </div>
+      <div style="margin: 0 auto; display: inline-block">
+        <br>
+        <div style="position: relative;" *ngIf="!otpLogin">
+          <input required #email="ngModel" autofocus [(ngModel)]="loginEmail" type="text" placeholder="Email " id="email" name="email" class="loginInputBoxes"
+            style="z-index: 0;overflow: hidden; background-color: white">
+          <input *ngIf="!otpLogin" type="password" placeholder="Password" id="password" name="password" class="loginInputBoxes" style="background-color: white">
+          <input type="checkbox" [(ngModel)]="otpLogin" name="remember" id="otp-login" value="1" checked="">
+          <span class="string optional" id="otp-login-label">Login via Mobile OTP</span>
+          <input *ngIf="!otpLogin" class="btn btn-primary" style="cursor: pointer; margin-bottom: 5px" type="submit" id="submit_login" value="SIGN IN">
+          <div class="line">
+            <span class="inline">or Login with</span>
+          </div>
+          <div class="row">
+            <div class="col-xl-2"></div>
+            <div class="col-xl-4 socialIcons">
+              <a style="font-size:24px; width: 80px; height: 40px; background-color: #DD4B39; color: white; padding-top: 0" class="btn btn-block btn-social btn-google"
+                (click)="login('google', loginPanel.style)">
+                <span class="fa fa-google"></span>
+              </a>
+            </div>
+            <div class="col-xl-4 socialIcons">
+              <a style=" font-size:24px; width: 80px; height: 40px; background-color: #3B5998; color: white; padding-top: 0" class="btn btn-block btn-social btn-facebook"
+                (click)="login('fb', loginPanel.style)">
+                <span class="fa fa-facebook-square"></span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div style="position: relative;" *ngIf="otpLogin">
+          <app-phone-login (userid) = "mobileLogin($event)"></app-phone-login>
+          <div style="margin-top: 15px" class="line">
+            <span class="inline">or Login with</span>
+          </div>
+          <div class="row">
+            <div class="col-xl-2"></div>
+            <div class="col-xl-4 socialIcons">
+              <a style="font-size:24px; width: 80px; height: 40px; background-color: #DD4B39; color: white; padding-top: 0" class="btn btn-block btn-social btn-google"
+                (click)="login('google', loginPanel.style)">
+                <span class="fa fa-google"></span>
+              </a>
+            </div>
+            <div class="col-xl-4 socialIcons">
+              <a style=" font-size:24px; width: 80px; height: 40px; background-color: #3B5998; color: white; padding-top: 0" class="btn btn-block btn-social btn-facebook"
+                (click)="login('fb', loginPanel.style)">
+                <span class="fa fa-facebook-square"></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div  id="counter"></div>
+<!-- </div> -->
