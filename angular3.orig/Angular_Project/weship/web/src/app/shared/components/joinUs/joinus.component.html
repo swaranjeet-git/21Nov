@@ -1,0 +1,124 @@
+<div id="recaptcha-container2"></div>
+<main role="main" id="mainContent" class="content">
+  <div id="id01" #joinmodal class="join-modal">
+    <div class="modal-content">
+      <div class="join-container">
+        <!-- <a #transporter style="display: none" href="transporter"></a> -->
+        <div class="imgcontainer">
+          <!-- <span style="cursor: pointer" onclick="document.getElementById('id01').style.display='none'" class="close display-topright" -->
+          <span style="cursor: pointer" (click)="sendtohome()" class="close display-topright" title="Close Modal">&times;</span>
+        </div>
+
+        <div class="row">
+          <div class="col-xl-12">
+            <h1 data-bind="text: headerText">Join weShip</h1>
+          </div>
+        </div>
+        <form #form="ngForm" >
+        <div class="row">
+          <div class="col-xl-6">
+            <mat-form-field class="example-full-width">
+              <input  [(ngModel)]="user.fName" name="fName" matInput placeholder="Name" required>
+            </mat-form-field>
+          </div>
+          <div class="col-xl-6">
+            <mat-form-field class="example-full-width">
+              <input [(ngModel)]="user.lName" name="lName" matInput placeholder="Last Name" required>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xl-8">
+            <mat-form-field class="example-full-width">
+                <!-- <input [disabled]="disableEmail || generateOTP" name="email" [(ngModel)]="user.email" matInput placeholder="Email" 
+                required email> -->
+
+              <input name="email" [(ngModel)]="user.email" matInput placeholder="Email" 
+              required email>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xl-3" style="padding-top: 18.5px" *ngIf="!disableMobile">
+            <select [(ngModel)]="user.mcountry" name="country" style="height: 30px;" [disabled]="generateOTP">
+              <option *ngFor="let country of countries" [value]="country.code">{{country.name}}(+{{country.code}})</option>
+            </select>
+          </div>
+          <div class="col-xl-6">
+            <mat-form-field class="example-full-width">
+              <input (keypress)="onlyNumberKey($event)" [disabled]="disableMobile || generateOTP"
+               [(ngModel)]="user.mobile" name="mobile" matInput placeholder="Mobile Number" value=""
+                minlength="10" maxlength="10" required>
+            </mat-form-field>
+          </div>
+        </div>
+        <br>
+        <div class="row" *ngIf = "!generateOTP">
+            <div class="col-xl-4"><input (click)="sendLoginCode()"  class="btn btn-primary" style="cursor: pointer;" type="button"
+              id="submit_login" [disabled]="form.invalid" value="Genrate OTP"></div>
+          </div>
+        <div class="row" *ngIf = "generateOTP && !otpVarified">
+          <div class="col-xl-4">
+            <input type="text" [(ngModel)]="verificationCode" (keypress)="onlyNumberKey($event)" placeholder="Enter OTP" id="otp" name="otp" class="loginInputBoxes">
+            <mat-error *ngIf="otpError">
+                {{otpError}}
+              </mat-error>
+          </div>
+          <div class="col-xl-3"><input  (click)="verifyLoginCode()"  class="btn btn-primary" style="cursor: pointer;" type="button"
+            id="submit_login" value="Varify"></div>
+        </div>
+
+        <div class="row">
+          <div class="col-xl-12">
+            <small data-bind="visible: typeof emailAddress() === 'undefined' || emailAddress.isValid()" class="field-tip">
+              <span data-bind="loc: 'useRealEmailWeDontSpam'">
+                <strong>Use your real email address.</strong> We don't spam.</span>
+              <a href="/mvc/Register/WeDontSpam" target="_blank">
+                <span data-bind="loc: 'binWarningMoreInfo'">More info</span>
+              </a>
+            </small>
+          </div>
+          <div class="col-xl-3" *ngIf="otpVarified">
+            <mat-checkbox [(ngModel)]="savePassword" name="savePassword">Set your own Password!</mat-checkbox>
+          </div>
+        </div>
+        <div class="row" *ngIf="savePassword">
+          <div class="col-xl 6">
+            <mat-form-field class="example-full-width">
+              <input type="password" [(ngModel)]="pwd" name="pwd" matInput placeholder="password" value="">
+            </mat-form-field>
+            <mat-error *ngIf="passwordError">
+              Password dose not match.
+            </mat-error>
+          </div>
+          <div class="col-xl 6">
+            <mat-form-field class="example-full-width">
+              <input type="password" [(ngModel)]="rpwd" name="rpwd" matInput placeholder="confirm password" value="" (blur)="comparePass()">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-6">
+            <input *ngIf="otpVarified" (click)="signup()" [disabled]="form.invalid" class="btn btn-primary" style="cursor: pointer; margin-bottom: 5px" type="submit"
+              id="submit_login" value="SIGN UP">
+          </div>
+        </div>
+      </form>
+        <div class="row">
+          <div class="col-xl-12" style="margin: 10px auto;">
+            <p>
+              <small data-bind="loc: 'clickContinueUserAgreement'">By clicking Continue, you accept the terms and conditions of the
+                <a target="_blank" href="/user_agreement.aspx">weShip User Agreement</a> and
+                <a target="_blank" href="/privacy.aspx">Privacy Policy</a>. By entering an email address and clicking "Join weShip" you agree to be contacted by
+                weShip for site notifications, transactional emails and select weShip promotions. We do not sell, rent or
+                share your contacts details and you may opt out of all details at any time.</small>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>

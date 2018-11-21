@@ -1,0 +1,28 @@
+<div class="card">
+  <div>
+    <!-- <h5 class="card-title">Choose Vehicle</h5> -->
+    <span *ngFor="let click of clicked; let i=index; let islast=last" class="">
+      <a *ngIf="!islast" rel="nofollow" routerLink="." (click)="showcategorynav(click, i)">
+        {{click.name}}>
+      </a>
+      <ng-template #lastLabel>{{click.name}} :</ng-template>
+
+    </span>
+  </div>
+  <div class="card-body row">
+    <div *ngFor="let category of categories; let i=index" class="col-xl-4" style="padding: 10px">
+        <mat-card>
+      <a rel="nofollow" routerLink="." (click)="showcategory(category)">
+        <div style="display: block; margin: 0 auto">
+          <h4>{{category.name}}</h4>
+        </div>
+        <!-- <div>
+          <p>{{category.desc}}</p>
+        </div> -->
+       
+      </a>
+    </mat-card>
+    </div>
+  </div>
+
+</div>

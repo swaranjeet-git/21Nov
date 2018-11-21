@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Easy- Ship</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/popper.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
+   
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js"></script> -->
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script>
+
+    <link rel="stylesheet" href="http://www.hyphentravels.in/css/animate.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1eWk-2vuh_ueY4A0h0Vm6JEv1qg0VF_s&callback=initMap"
+    type="text/javascript"></script> -->
+    <script>
+        new WOW().init();
+      </script>
+    
+    
+      <script>
+        $(document).ready(function () {
+          var a = 0;
+          $(window).scroll(function () {
+    
+            var oTop = $('#counter').offset().top - window.innerHeight;
+            //  console.log($(window).scrollTop());
+            //  console.log(oTop);
+            //  console.log(a);
+             
+             
+            
+            if (a == 0 && $(window).scrollTop() > oTop) {
+              $('.counter-value').each(function () {
+                var $this = $(this),
+                  countTo = $this.attr('data-count');
+                $({
+                  countNum: $this.text()
+                }).animate({
+                  countNum: countTo
+                },
+    
+                  {
+    
+                    duration: 3000,
+                    easing: 'swing',
+                    step: function () {
+                      $this.text(Math.floor(this.countNum));
+                    },
+                    complete: function () {
+                      $this.text(this.countNum);
+                      //alert('finished');
+                    }
+    
+                  });
+              });
+              // a = 1;
+            }
+    
+          });
+        });
+    
+      </script>
+    
+
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>

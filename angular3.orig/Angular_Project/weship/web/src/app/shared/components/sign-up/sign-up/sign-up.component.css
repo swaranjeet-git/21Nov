@@ -1,0 +1,30 @@
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+body{
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.btn{
+    width: 100%;
+}
+
+.btn-facebook{
+	   
+    color: #3b5998;
+}
+.btn-facebook1:hover{
+    background-color: #3b5998;
+    color: #fff;
+}
+.btn-google{
+    	color: #c23321;
+}
+.btn-google1:hover{
+	background-color: #c23321;
+	color: #fff;
+}
+
+.login-form .fa{
+font-size: 40px;
+}

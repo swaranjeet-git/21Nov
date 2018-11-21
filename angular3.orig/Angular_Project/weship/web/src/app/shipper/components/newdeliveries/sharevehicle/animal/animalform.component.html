@@ -1,0 +1,81 @@
+<a rel="nofollow" routerLink="." (click)="selectedCategoryReset()">Change Category</a>
+<mat-card class="example-card" [formGroup]="myGroup">
+  <div class="col-xl-12">
+    <!-- <mat-form-field class="field-width col-xl-3">
+      <mat-select placeholder="Furniture type" formControlName="type">
+        <mat-option *ngFor="let fur of furnitureType" value="fur.id">
+          {{fur.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field> -->
+    <mat-form-field class="field-width col-xl-3">
+      <input matInput placeholder="Animal Type" formControlName="type" #myFocus>
+      <mat-error *ngIf="myGroup.get('type').hasError('required')">
+        Animal Type is
+        <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <!-- <div class="col-xl-12">
+    <mat-form-field class="field-width col-xl-2">
+      <input matInput placeholder="Length" formControlName="length">
+      <mat-error *ngIf="myGroup.get('length').hasError('required')">
+        Length is
+        <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="field-width col-xl-2">
+      <input matInput placeholder="Width" formControlName="width">
+      <mat-error *ngIf="myGroup.get('width').hasError('required')">
+        Width is
+        <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="field-width col-xl-2">
+      <input matInput placeholder="Height" formControlName="height">
+      <mat-error *ngIf="myGroup.get('height').hasError('required')">
+        Height is
+        <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="field-width col-xl-2">
+      <mat-select value="inch">
+        <mat-option value="inch" selected>Inch</mat-option>
+        <mat-option value="cm">CM</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div> -->
+  <div class="col-xl-12">
+    <mat-form-field class="field-width col-xl-2">
+      <input matInput placeholder="Weight" formControlName="weight">
+      <mat-error *ngIf="myGroup.get('weight').hasError('required')">
+        Weight is
+        <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="field-width col-xl-2">
+      <mat-select value="kg">
+        <mat-option value="kg" selected>Kg</mat-option>
+        <mat-option value="lbs">lbs</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="field-width col-xl-">
+      <input matInput placeholder="Quantity" formControlName="qty" formControlName="qty" value=1>
+      <mat-error *ngIf="myGroup.get('qty').hasError('required')">
+        Quantity is
+        <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <app-imguploadtest (processedFiles)=uploadImage($event)>
+    </app-imguploadtest>
+  </div>
+  <div class="col-xl-12">
+
+    <mat-form-field class="example-full-width col-xl-12">
+      <textarea matInput placeholder="Description (Optional)" formControlName="desc" formControlName="desc"></textarea>
+    </mat-form-field>
+
+  </div>
+</mat-card>

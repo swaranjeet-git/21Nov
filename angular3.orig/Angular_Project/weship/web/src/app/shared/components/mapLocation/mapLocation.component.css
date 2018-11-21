@@ -1,0 +1,24 @@
+.example-card{
+      margin-bottom: 20px;
+  }
+
+  .example-full-width {
+  width: 60%;
+}
+
+.mat-form-field,.mat-raised-button {
+  font-size: 20px;
+}
+agm-map {
+  height: 300px;
+}
+.map-panel
+  {
+    display: flex;
+    align-items: center;
+    /* align-items: center;
+    padding-right: 24px;
+    background: #fff;
+    border-radius: .25rem;
+    border: 1px solid #ced4da; */
+  }

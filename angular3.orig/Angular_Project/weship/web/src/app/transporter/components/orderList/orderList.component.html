@@ -1,0 +1,102 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Order Listing</h3>
+      </div>
+    </div>
+  </div>
+</div>
+<agm-map></agm-map>
+<div class="row">
+  <div class="col-xl-1  col-md-1" style="color: red">Location:</div>
+  <div class="col-xl-3 col-md-3">
+    <mat-select #myCity placeholder="City" [(value)]="selectedCity" (selectionChange)="cityChange($event)">
+      <mat-option value="all">All</mat-option>
+      <mat-option *ngFor="let city of cities" [value]="city">
+        {{ city }}
+      </mat-option>
+    </mat-select>
+  </div>
+  <div class="col-xl-4  col-md-4"></div>
+  <div class="col-xl-1  col-md-4">Sort</div>
+  <div class="col-xl-3 col-md-3">
+    <mat-select #myCity placeholder="" [(value)]="selecetedSort" (selectionChange)="sortChange($event)">
+      <mat-option *ngFor="let sort of sortOptions" [value]="sort.id">
+        {{ sort.value }}
+      </mat-option>
+    </mat-select>
+  </div>
+</div>
+<br>
+<div class="col-md-12">
+  <mat-paginator style="font-size: 15px; color: blue" [length]="length" [pageSize]="pageSize" (page)="onPaginateChange($event)">
+  </mat-paginator>
+</div>
+<div *ngFor="let item of listing; let i= index">
+  <!-- <div *ngIf="expandCard[i]">
+      <br>
+    </div> -->
+  <mat-card (click)="clickCard(i)">
+    <mat-card-content>
+      <div>
+        <div>
+          <div class="row">
+            <div class="col-xl-6">
+              <strong> Date Range:</strong> {{ item.fromDate | date:'dd-MMM-yyyy' }}
+              <strong> to </strong> {{ item.toDate | date:'dd-MMM-yyyy' }}
+            </div>
+            <div class="col-xl-6" style="text-align: right">
+              <button mat-mini-fab color="primary">Bid</button>
+            </div>
+
+          </div>
+          <div class="row" style="padding-top: 5px">
+            <div class="col-xl-4">
+              <div>
+                <strong> Pickup location:</strong>
+              </div>
+              <div>
+                <mat-icon>place</mat-icon> {{ item.fromLoc.sublocality1 }}, {{ item.fromLoc.locality }}, {{item.fromLoc.city}}, {{item.fromLoc.stateLong}},
+                {{item.fromLoc.countryLong}}-{{item.fromLoc.postalCode}} </div>
+
+            </div>
+            <div class="col-xl-5">
+              <div>
+                <strong> Drop location:</strong>
+              </div>
+              <div>
+                <mat-icon>arrow_downward</mat-icon> {{ item.toLoc.sublocality1 }}, {{ item.toLoc.locality }}, {{item.toLoc.city}},
+                {{item.toLoc.stateLong}}, {{item.toLoc.countryLong}}-{{item.toLoc.postalCode}} </div>
+
+            </div>
+            <div class="col-xl-3" *ngIf="item.shared">
+              <span [title]='itemSummaryNewLine(item.summary)' matTooltipPosition="right">
+                <strong> Shared Vehicle: </strong>
+                <strong> Total Items: </strong> {{ item.count }}
+                <mat-icon class="torch"> highlight</mat-icon>
+              </span>
+            </div>
+            <div class="col-xl-3" *ngIf="!item.shared">
+              <span [title]='itemSummaryNewLine(item.summary)' matTooltipPosition="right">
+                <strong>Complete Vehicle </strong>
+                <mat-icon class="torch1"> directions_bus</mat-icon>
+              </span>
+            </div>
+
+          </div>
+          <!-- <div class="row">
+                <div class="col-xl-12" style="text-align: right">
+                    <button mat-raised-button class="mat-primary" style="background-color: #d63151; line-height:24px" (click)="openInWindow(item.id)">Detail</button>
+                </div>
+            </div> -->
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <div *ngIf="expandCard[i]">
+    <app-detailed-order-list (closed)="closeCard(i)" [inputItem]="item"></app-detailed-order-list>
+  </div>
+
+
+</div>

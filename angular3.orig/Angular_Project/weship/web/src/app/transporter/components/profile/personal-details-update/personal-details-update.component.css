@@ -1,0 +1,14 @@
+.myTitle{
+    color:black;
+     font-size :30px;
+     font-weight: bolder;
+     font-family:  sans-serif;
+     text-align: center
+}
+.myLabel{
+    color:black;
+    font-size :20px;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+   
+}

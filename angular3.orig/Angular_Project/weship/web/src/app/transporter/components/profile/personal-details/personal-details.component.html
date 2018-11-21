@@ -1,0 +1,58 @@
+<br>
+<div>
+    <br>
+
+    <!-- <mat-drawer-container class="demo-drawer-container" class="example-container">
+        <mat-drawer #start mode="side" class="expand"> -->
+            <p>
+                <!-- <button mat-button (click)="sidenav.toggle()">Close Profile</button> -->
+                <strong>My Profile</strong>
+            </p>
+
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Personal Details
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div *ngIf="!personalDetailEdit">
+                        <div> Name: {{user.fName}} {{user.lName}}
+                        <mat-icon class="editLink" (click)="personalDetailEdit = !personalDetailEdit">border_color</mat-icon></div>
+                        <p>Email : {{user.email}}</p>
+                        <p>Contact No : {{user.mobile}}</p>
+                        <p></p>
+                    </div>
+                    <div *ngIf="personalDetailEdit">
+                    
+                        <form [formGroup]="perDetailsForm">
+                            <div>
+                                <p>
+                                    <mat-form-field>
+                                        <input matInput placeholder="First name" formControlName="fName">
+                                    </mat-form-field>
+
+                                    <mat-form-field>
+                                        <input matInput placeholder="Last name" formControlName="lName">
+                                    </mat-form-field>
+                                </p>
+                                <p>
+                                    <mat-form-field>
+                                        <input matInput placeholder="Email" formControlName="email">
+                                    </mat-form-field>
+
+                                    <mat-form-field>
+                                        <input matInput placeholder="Mobile No" formControlName="mobile">
+                                    </mat-form-field>
+                                </p>
+
+                            </div>
+                        </form>
+
+                        <button mat-raised-button class="mat-primary" (click)="editPerDetails()">Edit</button>
+                    </div>
+                </mat-expansion-panel>
+                </mat-accordion>
+        <!-- </mat-drawer>
+    </mat-drawer-container> -->
+</div>

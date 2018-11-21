@@ -1,0 +1,62 @@
+<div class="container">
+        <!-- <h2>ng2-img-tools / ng2-img-max demo</h2> -->
+        <br /><br />
+        <div *ngIf="fileReceivedArray.length===0">
+          <ng2-file-input (onAction)="fileChange($event)" [multiple]="false"></ng2-file-input>
+          <button mat-button mat-raised-button color="primary"  (click)="uploadClicked()">upload</button>
+        </div>
+        <div *ngIf="fileReceivedArray.length!==0">
+            <h6> File attached :</h6>
+            <ul >
+              <li *ngFor=" let image of fileReceivedArray; let i = index">{{image.name}}<button mat-button color="warn" (click)="removeImage(i)"><Strong>X</Strong></button> </li>
+            </ul>
+      </div>
+        <!-- <h6>Click on any image to open it in a new tab (AdBlock may have to be paused)</h6> -->
+        <!-- <hr /> -->
+        <!-- <div class="row"> -->
+          <!-- <div class="col-4">
+            Your selected image: <br />
+            <a [href]="selectedImageTrusted" target="_blank" *ngIf="selectedImage">
+              <img [src]="selectedImageTrusted" class="img-thumbnail">
+            </a>
+          </div> -->
+          <!-- <div class="col-4">
+            Resized (img-tools & img-max): <br />
+            <a [href]="resizedImageTrusted" target="_blank" *ngIf="resizedImage && resizedImage!=='processing'">
+              <img [src]="resizedImageTrusted" class="img-thumbnail">
+            </a>
+            <i *ngIf="resizedImage==='processing'" class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+          </div> -->
+          <!-- <div class="col-4">
+            Compressed (img-tools & img-max): <br />
+            <a [href]="compressedImageTrusted" target="_blank" *ngIf="compressedImage && compressedImage!=='processing'">
+              <img [src]="compressedImageTrusted" class="img-thumbnail">
+            </a>
+            <i *ngIf="compressedImage==='processing'" class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+          </div> -->
+        <!-- </div> -->
+        <hr />
+        <!-- <div class="row"> -->
+        <!--   <div class="col-4">
+            Cropped (img-tools): <br />
+            <a [href]="croppedImageTrusted" target="_blank" *ngIf="croppedImage && croppedImage!=='processing'">
+              <img [src]="croppedImageTrusted" class="img-thumbnail">
+            </a>
+            <i *ngIf="croppedImage==='processing'" class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+          </div>
+          <div class="col-4">
+            Resized exact, cropped to fit (img-tools): <br />
+            <a [href]="resizedExactCroppedImageTrusted" target="_blank" *ngIf="resizedExactCroppedImage && resizedExactCroppedImage!=='processing'">
+              <img [src]="resizedExactCroppedImageTrusted" class="img-thumbnail">
+            </a>
+            <i *ngIf="resizedExactCroppedImage==='processing'" class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+          </div> -->
+          <!-- <div class="col-4">
+            Resized exact, filled to fit (img-tools): <br />
+            <a [href]="resizedExactFilledImageTrusted" target="_blank" *ngIf="resizedExactFilledImage && resizedExactFilledImage!=='processing'">
+              <img [src]="resizedExactFilledImageTrusted" class="img-thumbnail">
+            </a>
+            <i *ngIf="resizedExactFilledImage==='processing'" class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+          </div> -->
+        <!-- </div> -->
+      </div>

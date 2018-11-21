@@ -1,0 +1,492 @@
+<div *ngIf="!loggedInUser">
+  <!--Added by Kishore on 11march -->
+  <div class="container">
+      <div class="row">
+        <div class="col-md-12" style="background-image:initial">
+            <img src="assets/images/city.jpg" class="img-rounded" alt="Login" width="1100" height="100">
+        </div>
+      </div><br><br>
+      <div class="row">Transporter Details</div>
+
+      <div><app-view-transporter-list></app-view-transporter-list></div>
+      <!-- <div class="row"  style="padding-top: 60px">
+        <div class="col-md-12" style="text-align: center">
+          <h5><strong>Transport in 4 eazy steps</strong></h5>
+        </div>
+      </div> -->
+        <!-- <div class="row" style="padding-top: 29px">
+        <div class="col-md-3" style="text-align: center; cursor: pointer" (click) = "login()">
+                    
+          <div><img src="assets/images/login3.png" class="img-rounded" alt="Login" width="100" height="107"></div> 
+          <div ><strong>Login</strong></div>
+        </div>
+        <div class="col-md-3" style="text-align: center">
+                    
+            <div><img src="assets/images/login3.png" class="img-rounded" alt="Login" width="100" height="107"></div> 
+            <div ><strong>Boook Vehicle</strong></div>
+          </div>
+          <div class="col-md-3" style="text-align: center">
+                    
+              <div><img src="assets/images/login3.png" class="img-rounded" alt="Login" width="100" height="107"></div> 
+              <div ><strong>Accept Bid</strong></div>
+          </div>
+          <div class="col-md-3" style="text-align: center">
+                    
+              <div><img src="assets/images/login3.png" class="img-rounded" alt="Login" width="100" height="107"></div> 
+              <div ><strong>Transport</strong></div>
+          </div>
+        </div> -->
+        </div>
+  <!--End  -->
+</div>
+<div *ngIf="loggedInUser" >
+<mat-tab-group class="demo-tab-group" (selectChange)="tabChange($event)" [selectedIndex]="pageIndex">
+  <mat-tab label="Draft">
+    <div class="demo-tab-content" *ngIf="!draftlisting || draftlisting.length===0">
+      <mat-card>
+        <mat-card-content>
+          <div class="jumbotron">
+            <h1>0 Item found</h1>
+            <p>You do not have any deliveries in this status. Either you can chech in another tab or create new.</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="demo-tab-content" *ngIf="draftlisting">
+      <button mat-menu-item (click)="loadData()">
+        <mat-icon>refresh</mat-icon>
+        <span>refresh list</span>
+      </button>
+      <mat-card *ngFor="let item of draftlisting">
+        <mat-card-content>
+          <div>
+            <div class="col-xl-12" style="text-align: right; height: 5px;">
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="changeStatus(item.id, 'published')">
+                  <mat-icon>settings_input_antenna</mat-icon>
+                  <span>Publish</span>
+                </button>
+
+                <a mat-menu-item [routerLink]="'newship/hirevehicle/'
+                +item.id">
+                  <mat-icon>mode_edit</mat-icon>
+                  <span>Edit</span>
+                </a>
+
+                <!-- <button mat-menu-item>
+                  <mat-icon class="flip">voicemail</mat-icon>
+                  <span>View</span>
+                </button> -->
+                <!-- <button mat-menu-item>
+                  <mat-icon>search</mat-icon>
+                  <span>View</span>
+                </button> -->
+                <!-- <button mat-menu-item>
+                  <mat-icon>indeterminate_check_box</mat-icon>
+                  <span>Delete</span>
+                </button> -->
+                <button mat-menu-item (click)="openDeleteDialog(item.id)">
+                  <mat-icon>delete</mat-icon>
+                  <span>Delete</span>
+                </button>
+              </mat-menu>
+            </div>
+            <div>
+              <div class="row">
+                <div class="col-xl-6">
+                  <strong> Date Range:</strong> {{ item.fromDate | date:'dd-MMM-yyyy' }}
+                  <strong> to </strong> {{ item.toDate | date:'dd-MMM-yyyy' }}
+                </div>
+                <div class="col-xl-5" style="text-align: right" *ngIf = "!(item.bidCount)">
+                  <label style="color: green" > Publis your listing to get Bids </label> 
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-xl-4">
+                  <div>
+                    <strong> Pickup location:</strong>
+                  </div>
+                  <div>
+                    <mat-icon>place</mat-icon> {{ item.fromLoc.sublocality1 }}, {{ item.fromLoc.locality }}, {{item.fromLoc.city}},
+                    {{item.fromLoc.stateLong}}, {{item.fromLoc.countryLong}}-{{item.fromLoc.postalCode}} </div>
+
+                </div>
+                <div class="col-xl-4">
+                  <div>
+                    <strong> Drop location:</strong>
+                  </div>
+                  <div>
+                    <mat-icon>arrow_downward</mat-icon> {{ item.toLoc.sublocality1 }}, {{ item.toLoc.locality }}, {{item.toLoc.city}},
+                    {{item.toLoc.stateLong}}, {{item.toLoc.countryLong}}-{{item.toLoc.postalCode}} </div>
+
+                </div>
+                <div class="col-xl-4" *ngIf="item.shared">
+                  <span [title]='itemSummaryNewLine(item.summary)' matTooltipPosition="right">
+                    <strong> Shared Vehicle: </strong>
+                    <strong> Total Items: </strong> {{ item.count }}
+                    <mat-icon class="torch"> highlight</mat-icon>
+                  </span>
+                </div>
+                <div class="col-xl-4" *ngIf="!item.shared">
+                  <span [title]='itemSummaryNewLine(item.summary)' matTooltipPosition="right">
+                    <strong>Complete Vehicle </strong>
+                    <mat-icon class="torch1"> directions_bus</mat-icon>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-tab>
+  <mat-tab label="Published">
+    <ng-template mat-tab-label>
+      ⭐Published
+    </ng-template>
+    <div class="demo-tab-content" *ngIf="!draftlisting || draftlisting.length===0">
+      <mat-card>
+        <mat-card-content>
+          <div class="jumbotron">
+            <h1>0 Item found</h1>
+            <p>You do not have any deliveries in this status. Either you can chech in another tab or create new.</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="demo-tab-content" *ngIf="draftlisting">
+      <button mat-menu-item (click)="loadData()">
+        <mat-icon>refresh</mat-icon>
+        <span>refresh list</span>
+      </button>
+      <div *ngFor="let item of draftlisting; let i=index">
+      <mat-card (click)="clickCard(i)">
+        <mat-card-content>
+          <div>
+            <div class="col-xl-12" style="text-align: right; height: 5px;">
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                  <mat-icon class="flip">voicemail</mat-icon>
+                  <span>View</span>
+                </button>
+                <button mat-menu-item (click)="openEditDialog(item.id)">
+                    <mat-icon>mode_edit</mat-icon>
+                    <span>Edit</span>
+                  </button>
+                <button mat-menu-item (click)="openDeleteDialog()">
+                  <mat-icon>delete</mat-icon>
+                  <span>Delete</span>
+                </button>
+              </mat-menu>
+            </div>
+            <div>
+              <div class="row">
+                <div class="col-xl-6">
+                  <strong> Date Range:</strong> {{ item.fromDate | date:'dd-MMM-yyyy' }}
+                  <strong> to </strong> {{ item.toDate | date:'dd-MMM-yyyy' }}
+                </div>
+                <div class="col-xl-5" style="text-align: right" *ngIf = "item.bidCount > 0">
+                  <button style="color: green"> Bid Received: {{item.bidCount}}</button> 
+                </div>
+                <div class="col-xl-5" style="text-align: right" *ngIf = "!(item.bidCount)">
+                  <button style="color: green"> No Bid</button> 
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-xl-4">
+                  <div>
+                    <strong> Pickup location:</strong>
+                  </div>
+                  <div>
+                    <mat-icon>place</mat-icon> {{ item.fromLoc.sublocality1 }}, {{ item.fromLoc.locality }}, {{item.fromLoc.city}},
+                    {{item.fromLoc.stateLong}}, {{item.fromLoc.countryLong}}-{{item.fromLoc.postalCode}} </div>
+
+                </div>
+                <div class="col-xl-4">
+                  <div>
+                    <strong> Drop location:</strong>
+                  </div>
+                  <div>
+                    <mat-icon>arrow_downward</mat-icon> {{ item.toLoc.sublocality1 }}, {{ item.toLoc.locality }}, {{item.toLoc.city}},
+                    {{item.toLoc.stateLong}}, {{item.toLoc.countryLong}}-{{item.toLoc.postalCode}} </div>
+
+                </div>
+                <div class="col-xl-4" *ngIf="item.shared">
+                    <span [title]='itemSummaryNewLine(item.summary)' matTooltipPosition="right">
+                      <strong> Shared Vehicle: </strong>
+                      <strong> Total Items: </strong> {{ item.count }}
+                      <mat-icon class="torch"> highlight</mat-icon>
+                    </span>
+                  </div>
+                  <div class="col-xl-4" *ngIf="!item.shared">
+                    <span [title]='itemSummaryNewLine(item.summary)' matTooltipPosition="right">
+                      <strong>Complete Vehicle </strong>
+                      <mat-icon class="torch1"> directions_bus</mat-icon>
+                    </span>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+        
+      </mat-card>
+      <div *ngIf="expandCard[i]">
+          <app-orderbid-list [inputItem]="item"></app-orderbid-list>
+        
+      </div>
+    </div>
+    </div>
+  </mat-tab>
+  
+  <mat-tab label="Assigned">
+      <div class="demo-tab-content" *ngIf="!draftlisting || draftlisting.length===0">
+          <mat-card>
+            <mat-card-content>
+              <div class="jumbotron">
+                <h1>0 Item found</h1>
+                <p>You do not have any deliveries in this status. Either you can chech in another tab or create new.</p>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div class="demo-tab-content" *ngIf="draftlisting">
+          <button mat-menu-item (click)="loadData()">
+            <mat-icon>refresh</mat-icon>
+            <span>refresh list</span>
+          </button>
+          <mat-card *ngFor="let item of draftlisting">
+            <mat-card-content>
+              <div>
+                <div class="col-xl-12" style="text-align: right; height: 5px;">
+                  <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item>
+                        <mat-icon class="flip">voicemail</mat-icon>
+                      <span>Details</span>
+                    </button>
+                    <button mat-menu-item (click)="openEditDialog(item.id)">
+                        <mat-icon>mode_edit</mat-icon>
+                        <span>Edit</span>
+                      </button>
+                  </mat-menu>
+                </div>
+                <div>
+                  <div class="row">
+                    <div class="col-xl-6">
+                      <strong> Date Range:</strong> {{ item.fromDate | date:'dd-MMM-yyyy' }}
+                      <strong> to </strong> {{ item.toDate | date:'dd-MMM-yyyy' }}
+                    </div>
+    
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-4">
+                      <div>
+                        <strong> Pickup location:</strong>
+                      </div>
+                      <div>
+                        <mat-icon>place</mat-icon> {{ item.fromLoc.sublocality1 }}, {{ item.fromLoc.locality }}, {{item.fromLoc.city}},
+                        {{item.fromLoc.stateLong}}, {{item.fromLoc.countryLong}}-{{item.fromLoc.postalCode}} </div>
+    
+                    </div>
+                    <div class="col-xl-4">
+                      <div>
+                        <strong> Drop location:</strong>
+                      </div>
+                      <div>
+                        <mat-icon>arrow_downward</mat-icon> {{ item.toLoc.sublocality1 }}, {{ item.toLoc.locality }}, {{item.toLoc.city}},
+                        {{item.toLoc.stateLong}}, {{item.toLoc.countryLong}}-{{item.toLoc.postalCode}} </div>
+    
+                    </div>
+                    <div class="col-xl-4" *ngIf="item.shared">
+                      <span [title]='itemSummaryNewLine(item.summary)' matTooltipPosition="right">
+                        <strong> Shared Vehicle: </strong>
+                        <strong> Total Items: </strong> {{ item.count }}
+                        <mat-icon class="torch"> highlight</mat-icon>
+                      </span>
+                    </div>
+                    <div class="col-xl-4" *ngIf="!item.shared">
+                      <span [title]='itemSummaryNewLine(item.summary)' matTooltipPosition="right">
+                        <strong>Complete Vehicle </strong>
+                        <mat-icon class="torch1"> directions_bus</mat-icon>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+  </mat-tab>
+  <mat-tab label="Shipped">
+      <div class="demo-tab-content" *ngIf="!draftlisting || draftlisting.length===0">
+          <mat-card>
+            <mat-card-content>
+              <div class="jumbotron">
+                <h1>0 Item found</h1>
+                <p>You do not have any deliveries in this status. Either you can chech in another tab or create new.</p>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div class="demo-tab-content" *ngIf="draftlisting">
+          <button mat-menu-item (click)="loadData()">
+            <mat-icon>refresh</mat-icon>
+            <span>refresh list</span>
+          </button>
+          <mat-card *ngFor="let item of draftlisting">
+            <mat-card-content>
+              <div>
+                <div class="col-xl-12" style="text-align: right; height: 5px;">
+                  <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item>
+                        <mat-icon class="flip">voicemail</mat-icon>
+                      <span>Details</span>
+                    </button>
+                  </mat-menu>
+                </div>
+                <div>
+                  <div class="row">
+                    <div class="col-xl-6">
+                      <strong> Date Range:</strong> {{ item.fromDate | date:'dd-MMM-yyyy' }}
+                      <strong> to </strong> {{ item.toDate | date:'dd-MMM-yyyy' }}
+                    </div>
+    
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-4">
+                      <div>
+                        <strong> Pickup location:</strong>
+                      </div>
+                      <div>
+                        <mat-icon>place</mat-icon> {{ item.fromLoc.sublocality1 }}, {{ item.fromLoc.locality }}, {{item.fromLoc.city}},
+                        {{item.fromLoc.stateLong}}, {{item.fromLoc.countryLong}}-{{item.fromLoc.postalCode}} </div>
+    
+                    </div>
+                    <div class="col-xl-4">
+                      <div>
+                        <strong> Drop location:</strong>
+                      </div>
+                      <div>
+                        <mat-icon>arrow_downward</mat-icon> {{ item.toLoc.sublocality1 }}, {{ item.toLoc.locality }}, {{item.toLoc.city}},
+                        {{item.toLoc.stateLong}}, {{item.toLoc.countryLong}}-{{item.toLoc.postalCode}} </div>
+    
+                    </div>
+                    <div class="col-xl-4" *ngIf="item.shared">
+                      <span [title]='itemSummaryNewLine(item.summary)' matTooltipPosition="right">
+                        <strong> Shared Vehicle: </strong>
+                        <strong> Total Items: </strong> {{ item.count }}
+                        <mat-icon class="torch"> highlight</mat-icon>
+                      </span>
+                    </div>
+                    <div class="col-xl-4" *ngIf="!item.shared">
+                      <span [title]='itemSummaryNewLine(item.summary)' matTooltipPosition="right">
+                        <strong>Complete Vehicle </strong>
+                        <mat-icon class="torch1"> directions_bus</mat-icon>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+  </mat-tab>
+  <mat-tab label="Cancelled">
+    <div class="demo-tab-content" *ngIf="!draftlisting || draftlisting.length===0">
+      <mat-card>
+        <mat-card-content>
+          <div class="jumbotron">
+            <h1>0 Item found</h1>
+            <p>You do not have any deliveries in this status. Either you can chech in another tab or create new.</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="demo-tab-content" *ngIf="draftlisting">
+      <button mat-menu-item (click)="loadData()">
+        <mat-icon>refresh</mat-icon>
+        <span>refresh list</span>
+      </button>
+      <mat-card *ngFor="let item of draftlisting">
+        <mat-card-content>
+          <div>
+            <div class="col-xl-12" style="text-align: right; height: 5px;">
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                  <mat-icon>mode_edit</mat-icon>
+                  <span>Edit</span>
+                </button>
+              </mat-menu>
+            </div>
+            <div>
+              <div class="row">
+                <div class="col-xl-6">
+                  <strong> Date Range:</strong> {{ item.fromDate | date:'dd-MMM-yyyy' }}
+                  <strong> to </strong> {{ item.toDate | date:'dd-MMM-yyyy' }}
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-xl-4">
+                  <div>
+                    <strong> Pickup location:</strong>
+                  </div>
+                  <div>
+                    <mat-icon>place</mat-icon> {{ item.fromLoc.sublocality1 }}, {{ item.fromLoc.locality }}, {{item.fromLoc.city}},
+                    {{item.fromLoc.stateLong}}, {{item.fromLoc.countryLong}}-{{item.fromLoc.postalCode}} </div>
+
+                </div>
+                <div class="col-xl-4">
+                  <div>
+                    <strong> Drop location:</strong>
+                  </div>
+                  <div>
+                    <mat-icon>arrow_downward</mat-icon> {{ item.toLoc.sublocality1 }}, {{ item.toLoc.locality }}, {{item.toLoc.city}},
+                    {{item.toLoc.stateLong}}, {{item.toLoc.countryLong}}-{{item.toLoc.postalCode}} </div>
+
+                </div>
+                <div class="col-xl-4" *ngIf="item.shared">
+                  <span [title]='itemSummaryNewLine(item.summary)' matTooltipPosition="right">
+                    <strong> Shared Vehicle: </strong>
+                    <strong> Total Items: </strong> {{ item.count }}
+                    <mat-icon class="torch"> highlight</mat-icon>
+                  </span>
+                </div>
+                <div class="col-xl-4" *ngIf="!item.shared">
+                  <span [title]='itemSummaryNewLine(item.summary)' matTooltipPosition="right">
+                    <strong>Complete Vehicle </strong>
+                    <mat-icon class="torch1"> directions_bus</mat-icon>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-tab>
+
+</mat-tab-group>
+
+<div>
+  <a class="nav-linka" routerLink="/shipper/newship">
+    <button class="btn btn-primary">Book Vehicle</button>
+  </a>
+</div>
+</div>

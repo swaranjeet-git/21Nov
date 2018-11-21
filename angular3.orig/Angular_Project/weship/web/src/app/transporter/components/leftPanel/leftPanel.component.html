@@ -1,0 +1,67 @@
+<!-- <strong>Filter</strong> -->
+<br>
+<ul class="nav nav-pills flex-column pad-left-right">
+  <li class="nav-item btn-center">
+    <button class="nav-link active  col-xl-10" (click)="applyFilter()">Apply
+      <span class="sr-only">(current)</span>
+    </button>
+  </li>
+  <br>
+  <li class="nav-item ">
+    <h6 class="example-h2">Distance in (Kms)</h6>
+    <span>
+      <label  style="">{{distance}} </label>
+      <label style="float: right; padding-right: 10px">500 <
+        </label>
+    </span>
+    <span style="">
+    <mat-slider class="example-margin col-xl-12 col-md-12 col-sm-12 col-12" max="500" min="50" step="10" thumb-label="true" tick-interval="5" [(ngModel)]="distance">
+    </mat-slider></span>
+  </li>
+  <li class="nav-item">
+      <mat-form-field class = "price-range" >
+          <input matInput placeholder="Price from" (keypress)="onlyNumberKey($event)" number [(ngModel)]="priceStart">
+          <button mat-button *ngIf="priceStart" matSuffix mat-icon-button aria-label="Clear" (click)="priceStart=''">
+              <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+      <mat-form-field class="price-range">
+        <input matInput placeholder="Price to" (keypress)="onlyNumberKey($event)" number [(ngModel)]="priceEnd">
+        <button mat-button *ngIf="priceEnd" matSuffix mat-icon-button aria-label="Clear" (click)="priceEnd=''">
+            <mat-icon>close</mat-icon>
+          </button>
+      </mat-form-field>
+  </li>
+  <li class="nav-item vehicle-type">
+    <mat-select placeholder="Request Type" [(value)]="listingType">
+      <mat-option *ngFor="let listing of listingTypes" [value]="listing.value">
+        {{ listing.viewValue }}
+      </mat-option>
+    </mat-select>
+  </li>
+<br>
+  <li class="nav-item vehicle-type">
+    <mat-select placeholder="Vehicle Type" [(value)]="vehicleType">
+      <mat-option *ngFor="let vehicle of vehicleTypes" [value]="vehicle.value">
+        {{ vehicle.viewValue }}
+      </mat-option>
+    </mat-select>
+  </li>
+</ul>
+
+<ul class="nav nav-pills flex-column pad-left-right">
+  <li class="nav-item">
+    <section class="example-section">
+      <label class="example-label-margin">Order By: </label>
+      <mat-radio-group [(ngModel)]="align" class="radio-group">
+        <mat-radio-button class="example-margin" value="start">Start</mat-radio-button>
+        <mat-radio-button class="example-margin" value="end">End</mat-radio-button>
+      </mat-radio-group>
+    </section>
+  </li>
+  <li class="nav-item btn-center">
+    <button class="nav-link active  col-xl-10" (click)="applyFilter()">Apply
+      <span class="sr-only">(current)</span>
+    </button>
+  </li>
+</ul>

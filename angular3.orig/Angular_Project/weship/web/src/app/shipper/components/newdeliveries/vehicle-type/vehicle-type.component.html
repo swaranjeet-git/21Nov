@@ -1,0 +1,64 @@
+<!-- <div class="page-title-text">
+  <h3>New Delivery</h3>
+</div> -->
+<div *ngIf="!loggedInUser">
+    <!--Added by Kishore on 11march -->
+  <div class="container">
+        <div class="row">
+          <div class="col-md-12" style="background-image:initial">
+              <img src="assets/images/city.jpg" class="img-rounded" alt="Login" width="1100" height="236">
+          </div>
+        </div>
+        <div class="row"  style="padding-top: 60px">
+          <div class="col-md-12" style="text-align: center">
+            <h5><strong>Transport in ez steps</strong></h5>
+          </div>
+        </div>
+          <div class="row" style="padding-top: 29px">
+          <div class="col-md-3" style="text-align: center">
+                      
+            <div><img src="assets/images/login3.png" class="img-rounded" alt="Login" width="100" height="107"></div> 
+            <div ><strong>Login</strong></div>
+          </div>
+          <div class="col-md-3" style="text-align: center">
+                      
+              <div><img src="assets/images/login3.png" class="img-rounded" alt="Login" width="100" height="107"></div> 
+              <div ><strong>Boook Vehicle</strong></div>
+            </div>
+            <div class="col-md-3" style="text-align: center">
+                      
+                <div><img src="assets/images/login3.png" class="img-rounded" alt="Login" width="100" height="107"></div> 
+                <div ><strong>Accept Bid</strong></div>
+            </div>
+            <div class="col-md-3" style="text-align: center">
+                      
+                <div><img src="assets/images/login3.png" class="img-rounded" alt="Login" width="100" height="107"></div> 
+                <div ><strong>Transport</strong></div>
+            </div>
+          </div>
+          </div>
+    <!--End  -->
+  </div>
+<div *ngIf="loggedInUser">  
+<div>
+    <img src="/assets/images/chooseTruck.jpg" class="img-responsive img-cricle person1-img" style="align-content: right">
+</div>
+<div class="card">
+  <div class="card-header ">
+      <h5 class="card-title">Book Vehicle</h5>
+
+      <div class="row">
+          <a routerLink="hirevehicle" class="col-xl-5">
+              <mat-card _ngcontent-c15="" class="mat-card">
+                  <mat-card-title _ngcontent-c15="" class="mat-card-title">Complete Vehicle</mat-card-title>
+              </mat-card>
+          </a>
+          <a routerLink="sharevehicle" class="col-xl-5">
+              <mat-card _ngcontent-c15="" class="mat-card">
+                  <mat-card-title _ngcontent-c15="" class="mat-card-title">Shared Vehicle</mat-card-title>
+              </mat-card>
+          </a>
+      </div>
+  </div>
+</div>
+</div>

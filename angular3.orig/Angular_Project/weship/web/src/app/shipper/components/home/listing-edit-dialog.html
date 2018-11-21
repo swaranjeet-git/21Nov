@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Edit</h2>
+<mat-dialog-content>Editing this order will remove all your transactions and conversastions of this list, You need to start your listing over again.
+  <BR>
+  <h2>Are you sure? </h2>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancle</button>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-raised-button color="primary" [mat-dialog-close]="true">I Agree</button>
+</mat-dialog-actions>
